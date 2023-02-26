@@ -34,6 +34,7 @@
     "blitz": "2.0.0-beta.23",
     "flowbite": "1.6.3",
     "flowbite-react": "0.3.8",
+    "flowbite-typography": "1.0.3",
     "next": "12.2.5",
     "postcss": "8.x",
     "prisma": "4.6.0",
