@@ -1,25 +1,26 @@
-import { Suspense } from "react";
-import { Routes } from "@blitzjs/next";
-import Head from "next/head";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import { useQuery, useMutation } from "@blitzjs/rpc";
-import { useParam } from "@blitzjs/next";
+import { Suspense } from "react"
+import { Routes } from "@blitzjs/next"
+import Head from "next/head"
+import Link from "next/link"
+import { useRouter } from "next/router"
+import { useQuery, useMutation } from "@blitzjs/rpc"
+import { useParam } from "@blitzjs/next"
 
-import Layout from "src/core/layouts/Layout";
-import getBook from "src/books/queries/getBook";
-import deleteBook from "src/books/mutations/deleteBook";
+import Layout from "src/core/layouts/Layout"
+import getBook from "src/books/queries/getBook"
+import deleteBook from "src/books/mutations/deleteBook"
+import BookIntroduction from "src/books/components/BookIntroduction"
 
 export const Book = () => {
-  const router = useRouter();
-  const bookId = useParam("bookId", "number");
-  const [deleteBookMutation] = useMutation(deleteBook);
-  const [book] = useQuery(getBook, { id: bookId });
+  const router = useRouter()
+  const bookId = useParam("bookId", "number")
+  const [deleteBookMutation] = useMutation(deleteBook)
+  const [book] = useQuery(getBook, { id: bookId })
 
   return (
     <>
       <Head>
-        <title>Book {book.id}</title>
+        <title>{book.title}</title>
       </Head>
 
       <div>
@@ -34,8 +35,8 @@ export const Book = () => {
           type="button"
           onClick={async () => {
             if (window.confirm("This will be deleted")) {
-              await deleteBookMutation({ id: book.id });
-              await router.push(Routes.BooksPage());
+              await deleteBookMutation({ id: book.id })
+              await router.push(Routes.BooksPage())
             }
           }}
           style={{ marginLeft: "0.5rem" }}
@@ -44,12 +45,13 @@ export const Book = () => {
         </button>
       </div>
     </>
-  );
-};
+  )
+}
 
 const ShowBookPage = () => {
   return (
     <div>
+      <BookIntroduction />
       <p>
         <Link href={Routes.BooksPage()}>
           <a>Books</a>
@@ -60,10 +62,9 @@ const ShowBookPage = () => {
         <Book />
       </Suspense>
     </div>
-  );
-};
+  )
+}
 
-ShowBookPage.authenticate = true;
-ShowBookPage.getLayout = (page) => <Layout>{page}</Layout>;
+ShowBookPage.getLayout = (page) => <Layout>{page}</Layout>
 
-export default ShowBookPage;
+export default ShowBookPage
