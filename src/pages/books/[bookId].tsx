@@ -10,6 +10,7 @@ import Layout from "src/core/layouts/Layout"
 import getBook from "src/books/queries/getBook"
 import deleteBook from "src/books/mutations/deleteBook"
 import BookIntroduction from "src/books/components/BookIntroduction"
+import BookDescription from "src/books/components/BookDescription"
 
 export const Book = () => {
   const router = useRouter()
@@ -52,6 +53,7 @@ const ShowBookPage = () => {
   return (
     <div>
       <BookIntroduction />
+      <BookDescription />
       <p>
         <Link href={Routes.BooksPage()}>
           <a>Books</a>

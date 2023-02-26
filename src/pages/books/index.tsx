@@ -27,7 +27,7 @@ export const BooksList = () => {
         {books.map((book) => (
           <li key={book.id}>
             <Link href={Routes.ShowBookPage({ bookId: book.id })}>
-              <a>{book.name}</a>
+              <a>{book.title}</a>
             </Link>
           </li>
         ))}
