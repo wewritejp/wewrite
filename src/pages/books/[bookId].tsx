@@ -1,68 +1,21 @@
-import { Suspense } from "react"
-import { Routes } from "@blitzjs/next"
-import Head from "next/head"
-import Link from "next/link"
-import { useRouter } from "next/router"
-import { useQuery, useMutation } from "@blitzjs/rpc"
-import { useParam } from "@blitzjs/next"
-
+import { gSSP } from "src/blitz-server"
 import Layout from "src/core/layouts/Layout"
 import getBook from "src/books/queries/getBook"
-import deleteBook from "src/books/mutations/deleteBook"
 import BookIntroduction from "src/books/components/BookIntroduction"
 import BookDescription from "src/books/components/BookDescription"
 
-export const Book = () => {
-  const router = useRouter()
-  const bookId = useParam("bookId", "number")
-  const [deleteBookMutation] = useMutation(deleteBook)
-  const [book] = useQuery(getBook, { id: bookId })
+export const getServerSideProps = gSSP(async ({ query, ctx }) => {
+  // string型に変更するため、一旦1で放置
+  const book = await getBook({ id: 1 }, ctx)
 
-  return (
-    <>
-      <Head>
-        <title>{book.title}</title>
-      </Head>
+  return { props: { book } }
+})
 
-      <div>
-        <h1>Book {book.id}</h1>
-        <pre>{JSON.stringify(book, null, 2)}</pre>
-
-        <Link href={Routes.EditBookPage({ bookId: book.id })}>
-          <a>Edit</a>
-        </Link>
-
-        <button
-          type="button"
-          onClick={async () => {
-            if (window.confirm("This will be deleted")) {
-              await deleteBookMutation({ id: book.id })
-              await router.push(Routes.BooksPage())
-            }
-          }}
-          style={{ marginLeft: "0.5rem" }}
-        >
-          Delete
-        </button>
-      </div>
-    </>
-  )
-}
-
-const ShowBookPage = () => {
+const ShowBookPage = ({ book }) => {
   return (
     <div>
-      <BookIntroduction />
-      <BookDescription />
-      <p>
-        <Link href={Routes.BooksPage()}>
-          <a>Books</a>
-        </Link>
-      </p>
-
-      <Suspense fallback={<div>Loading...</div>}>
-        <Book />
-      </Suspense>
+      <BookIntroduction book={book} />
+      <BookDescription book={book} />
     </div>
   )
 }

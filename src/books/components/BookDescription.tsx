@@ -2,7 +2,7 @@ import { Avatar, Button } from "flowbite-react"
 import Link from "next/link"
 import { useRouter } from "next/router"
 
-const BookDescription = () => {
+const BookDescription = ({ book }) => {
   const router = useRouter()
   const { bookId } = router.query
 
@@ -11,9 +11,7 @@ const BookDescription = () => {
       <div className="md:grid md:grid-cols-12">
         <div className="md:col-span-12 format">
           <article>
-            <h3 className="headline">
-              小さなアプリを作りながら学べる、TypeScript x Reactの開発の基礎
-            </h3>
+            <h3 className="headline">{book.purpose}</h3>
             <div>
               <p>
                 今日、フロントエンドの開発では、多くのプロジェクトがTypeScriptとReactを採用しています。2022年では、フロントエンド界隈でReactが最も人気があったという調査結果が出ています。

@@ -1,18 +1,16 @@
 // import Breadcrumb from "@/core/components/Breadcrumb";
 // import Tags from "@/core/components/Tags";
-import { Avatar, Rating } from "flowbite-react";
-import Image from "next/image";
+import { Avatar, Rating } from "flowbite-react"
+import Image from "next/image"
 
-const BookIntroduction = () => {
+const BookIntroduction = ({ book }) => {
   return (
     <section className="min-h-96 bg-blue-800">
       <div className="max-w-4xl mx-auto px-4 py-8 flex flex-col gap-4 text-white">
         {/* <Breadcrumb items={["books"]} isTextWhite/> */}
         <div className="flex flex-col gap-4">
           <div>
-            <h1 className=" text-2xl font-bold">
-              狂ってる！世界にあった危険な遊び３選【楽しく放射線・処刑ごっこ・人体破壊おもちゃ】
-            </h1>
+            <h1 className=" text-2xl font-bold">{book.title}</h1>
           </div>
           <div className="flex">
             <Rating>
@@ -21,9 +19,7 @@ const BookIntroduction = () => {
               <Rating.Star />
               <Rating.Star />
               <Rating.Star filled={false} />
-              <p className="ml-2 text-sm font-medium text-gray-200">
-                4.95 (30)
-              </p>
+              <p className="ml-2 text-sm font-medium text-gray-200">4.95 (30)</p>
             </Rating>
             <Avatar rounded className="ml-auto text-sm" size={"sm"}>
               higakijin
@@ -48,14 +44,12 @@ const BookIntroduction = () => {
           </div>
           <div className="flex">
             {/* <Tags items={["hogehoge", "foobar"]} /> */}
-            <p className="ml-auto text-xs mt-auto">
-              Last updated at 2023.01.21
-            </p>
+            <p className="ml-auto text-xs mt-auto">Last updated at 2023.01.21</p>
           </div>
         </div>
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default BookIntroduction;
+export default BookIntroduction
