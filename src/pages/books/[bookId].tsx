@@ -6,8 +6,8 @@ import BookDescription from "src/books/components/BookDescription"
 import Footer from "src/core/components/Footer"
 
 export const getServerSideProps = gSSP(async ({ query, ctx }) => {
-  // string型に変更するため、一旦1で放置
-  const book = await getBook({ id: 1 }, ctx)
+  const id = query.bookId as string
+  const book = await getBook({ id }, ctx)
 
   return { props: { book } }
 })

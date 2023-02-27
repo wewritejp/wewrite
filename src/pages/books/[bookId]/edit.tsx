@@ -13,7 +13,7 @@ import { BookForm, FORM_ERROR } from "src/books/components/BookForm";
 
 export const EditBook = () => {
   const router = useRouter();
-  const bookId = useParam("bookId", "number");
+  const bookId = useParam("bookId", "string");
   const [book, { setQueryData }] = useQuery(
     getBook,
     { id: bookId },
