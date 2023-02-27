@@ -5,6 +5,7 @@ import Layout from "src/core/layouts/Layout"
 import createBook from "src/books/mutations/createBook"
 import { BookForm, FORM_ERROR } from "src/books/components/BookForm"
 import { CreateBook } from "src/books/validations"
+import Footer from "src/core/components/Footer"
 
 const NewBookPage = () => {
   const router = useRouter()
@@ -12,14 +13,11 @@ const NewBookPage = () => {
 
   return (
     <Layout title={"Create New Book"}>
-      <div className="max-w-md mx-auto flex flex-col gap-4">
+      <div className="max-w-2xl mx-auto flex flex-col gap-4 p-4">
         <h1 className="text-2xl font-semibold">Create New Book</h1>
 
         <BookForm
           submitText="Create Book"
-          // TODO use a zod schema for form validation
-          //  - Tip: extract mutation's schema into a shared `validations.ts` file and
-          //         then import and use it here
           schema={CreateBook}
           // initialValues={{}}
           onSubmit={async (values) => {
@@ -35,6 +33,7 @@ const NewBookPage = () => {
           }}
         />
       </div>
+      <Footer />
     </Layout>
   )
 }
