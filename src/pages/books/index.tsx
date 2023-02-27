@@ -50,7 +50,7 @@ const BooksPage = () => {
         <title>Books</title>
       </Head>
 
-      <div>
+      <div className="p-2">
         <p>
           <Link href={Routes.NewBookPage()}>
             <a>Create Book</a>
