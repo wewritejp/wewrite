@@ -29,3 +29,7 @@
 article {
   @apply py-4
 }
+
+.link {
+  @apply hover:underline
+}

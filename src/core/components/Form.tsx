@@ -2,6 +2,7 @@ import { useState, ReactNode, PropsWithoutRef } from "react"
 import { FormProvider, useForm, UseFormProps } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
+import { Button, TextInput } from "flowbite-react"
 
 export interface FormProps<S extends z.ZodType<any, any>>
   extends Omit<PropsWithoutRef<JSX.IntrinsicElements["form"]>, "onSubmit"> {
@@ -55,19 +56,18 @@ export function Form<S extends z.ZodType<any, any>>({
         className="form"
         {...props}
       >
-        {/* Form fields supplied as children are rendered here */}
         {children}
 
         {formError && (
-          <div role="alert" style={{ color: "red" }}>
+          <TextInput role="alert" className="text-red-500">
             {formError}
-          </div>
+          </TextInput>
         )}
 
         {submitText && (
-          <button type="submit" disabled={ctx.formState.isSubmitting}>
+          <Button type="submit" disabled={ctx.formState.isSubmitting}>
             {submitText}
-          </button>
+          </Button>
         )}
 
         <style global jsx>{`
