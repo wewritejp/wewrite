@@ -11,7 +11,7 @@ const NavbarIcon = () => {
   const [logoutMutation] = useMutation(logout)
   const handleLogout = async () => {
     await logoutMutation()
-    router.push('/')
+    await router.push('/')
   }
 
   return (
