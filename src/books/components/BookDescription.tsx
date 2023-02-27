@@ -12,13 +12,13 @@ const BookDescription = ({ book }) => {
         <div className="md:col-span-12 format">
           <article>
             <h3 className="headline">{book.purpose}</h3>
-            <div>
+            <div className="sentence">
               {book.content}
             </div>
           </article>
           <article>
             <h3 className="headline">Note</h3>
-            <div>
+            <div className="sentence">
               {book.note}
             </div>
           </article>
