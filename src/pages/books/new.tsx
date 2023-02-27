@@ -5,6 +5,7 @@ import { useMutation } from "@blitzjs/rpc";
 import Layout from "src/core/layouts/Layout";
 import createBook from "src/books/mutations/createBook";
 import { BookForm, FORM_ERROR } from "src/books/components/BookForm";
+import { CreateBook } from "src/books/validation";
 
 const NewBookPage = () => {
   const router = useRouter();
@@ -19,7 +20,7 @@ const NewBookPage = () => {
         // TODO use a zod schema for form validation
         //  - Tip: extract mutation's schema into a shared `validations.ts` file and
         //         then import and use it here
-        // schema={CreateBook}
+        schema={CreateBook}
         // initialValues={{}}
         onSubmit={async (values) => {
           try {

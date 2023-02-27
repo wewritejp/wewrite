@@ -1,19 +1,20 @@
-import { Suspense } from "react";
-import { Routes } from "@blitzjs/next";
-import Head from "next/head";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import { useQuery, useMutation } from "@blitzjs/rpc";
-import { useParam } from "@blitzjs/next";
+import { Suspense } from "react"
+import { Routes } from "@blitzjs/next"
+import Head from "next/head"
+import Link from "next/link"
+import { useRouter } from "next/router"
+import { useQuery, useMutation } from "@blitzjs/rpc"
+import { useParam } from "@blitzjs/next"
 
-import Layout from "src/core/layouts/Layout";
-import getBook from "src/books/queries/getBook";
-import updateBook from "src/books/mutations/updateBook";
-import { BookForm, FORM_ERROR } from "src/books/components/BookForm";
+import Layout from "src/core/layouts/Layout"
+import getBook from "src/books/queries/getBook"
+import updateBook from "src/books/mutations/updateBook"
+import { BookForm, FORM_ERROR } from "src/books/components/BookForm"
+import { UpdateBook } from "src/books/validation"
 
 export const EditBook = () => {
-  const router = useRouter();
-  const bookId = useParam("bookId", "string");
+  const router = useRouter()
+  const bookId = useParam("bookId", "string")
   const [book, { setQueryData }] = useQuery(
     getBook,
     { id: bookId },
@@ -21,8 +22,8 @@ export const EditBook = () => {
       // This ensures the query never refreshes and overwrites the form data while the user is editing.
       staleTime: Infinity,
     }
-  );
-  const [updateBookMutation] = useMutation(updateBook);
+  )
+  const [updateBookMutation] = useMutation(updateBook)
 
   return (
     <>
@@ -39,28 +40,24 @@ export const EditBook = () => {
           // TODO use a zod schema for form validation
           //  - Tip: extract mutation's schema into a shared `validations.ts` file and
           //         then import and use it here
-          // schema={UpdateBook}
+          schema={UpdateBook}
           initialValues={book}
           onSubmit={async (values) => {
             try {
-              const updated = await updateBookMutation({
-                id: book.id,
-                ...values,
-              });
-              await setQueryData(updated);
-              await router.push(Routes.ShowBookPage({ bookId: updated.id }));
+              const updated = await updateBookMutation({ ...values })
+              await router.push(Routes.ShowBookPage({ bookId: updated.id }))
             } catch (error: any) {
-              console.error(error);
+              console.error(error)
               return {
                 [FORM_ERROR]: error.toString(),
-              };
+              }
             }
           }}
         />
       </div>
     </>
-  );
-};
+  )
+}
 
 const EditBookPage = () => {
   return (
@@ -75,10 +72,10 @@ const EditBookPage = () => {
         </Link>
       </p>
     </div>
-  );
-};
+  )
+}
 
-EditBookPage.authenticate = true;
-EditBookPage.getLayout = (page) => <Layout>{page}</Layout>;
+EditBookPage.authenticate = true
+EditBookPage.getLayout = (page) => <Layout>{page}</Layout>
 
-export default EditBookPage;
+export default EditBookPage
