@@ -24,7 +24,7 @@ const EditBookPage = ({ book }) => {
   return (
     <Layout title={"Edit book"}>
       <div className="max-w-2xl mx-auto flex flex-col gap-4 p-4">
-        <h1 className="text-2xl font-semibold">Edit '{book.title}'</h1>
+        <h1 className="text-2xl font-semibold">Edit ‘‘{book.title}‘‘</h1>
 
         <BookForm
           submitText="Update Book"
