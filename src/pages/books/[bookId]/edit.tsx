@@ -32,8 +32,8 @@ const EditBookPage = ({ book }) => {
           initialValues={book}
           onSubmit={async (values) => {
             try {
-              const updated = await updateBookMutation({ ...values })
-              await router.push(Routes.ShowBookPage({ bookId: updated.id }))
+              await updateBookMutation({ ...values })
+              await router.push(Routes.ShowBookPage({ bookId: book.id }))
             } catch (error: any) {
               console.error(error)
               return {
