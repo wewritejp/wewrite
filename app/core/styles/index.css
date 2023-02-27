@@ -17,3 +17,15 @@
 .description {
   @apply text-center;
 }
+
+.image {
+  @apply object-cover
+}
+
+.headline {
+  @apply border-b-2 border-blue-800 pb-2;
+}
+
+article {
+  @apply py-4
+}
