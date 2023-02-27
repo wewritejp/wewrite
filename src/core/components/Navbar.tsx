@@ -1,8 +1,13 @@
 import { Routes } from "@blitzjs/next"
-import { Navbar as FlowbiteNavbar, Button } from "flowbite-react"
+import { Navbar as FlowbiteNavbar, Button, Avatar } from "flowbite-react"
 import Link from "next/link"
+import { Suspense } from "react"
+import { useIsSignedIn } from "src/users/hooks/useIsSignedIn"
+import NavbarIcon from "./NavbarIcon"
 
 const Navbar = () => {
+  const isSignedIn = useIsSignedIn()
+
   return (
     <FlowbiteNavbar fluid={true} id="navbar">
       <Link href="/">
@@ -27,12 +32,20 @@ const Navbar = () => {
         <FlowbiteNavbar.Link href="#">Contact</FlowbiteNavbar.Link>
       </FlowbiteNavbar.Collapse>
       <div className="flex md:order-2 gap-4">
-        <Link href={Routes.LoginPage()}>
-          <Button color="gray">Login</Button>
-        </Link>
-        <Link href={Routes.SignupPage()}>
-          <Button color="gray">Register</Button>
-        </Link>
+        { isSignedIn? (
+          <Suspense fallback={<Avatar rounded />}>
+            <NavbarIcon />
+          </Suspense>
+        ) : (
+          <>
+            <Link href={Routes.LoginPage()}>
+              <Button color="gray">Login</Button>
+            </Link>
+            <Link href={Routes.SignupPage()}>
+              <Button color="gray">Register</Button>
+            </Link>
+          </>
+        )}
         <FlowbiteNavbar.Toggle />
       </div>
     </FlowbiteNavbar>

@@ -1,11 +1,17 @@
-import { Avatar, Rating } from "flowbite-react"
+import { Avatar, Button, Rating } from "flowbite-react"
 import Image from "next/image"
 import dateFormat from "dateformat"
 import { MdUpdate } from "react-icons/md"
 import Tags from "src/core/components/Tags"
 import Breadcrumb from "src/core/components/Breadcrumb"
+import { BsPencil, BsBook } from "react-icons/bs"
+import { useMyBook } from "hooks/useMyBook"
+import Link from "next/link"
+import { Routes } from "@blitzjs/next"
 
 const BookIntroduction = ({ book }) => {
+  const { isMyBook } = useMyBook(book)
+
   return (
     <section className="min-h-96 bg-blue-800">
       <div className="max-w-4xl mx-auto px-4 py-8 flex flex-col gap-4 text-white">
@@ -40,9 +46,25 @@ const BookIntroduction = ({ book }) => {
           </div>
           <div className="flex">
             <Tags items={["hogehoge", "foobar"]} />
-            <div className="ml-auto mt-auto flex gap-1">
+          </div>
+          <div className="flex">
+            <div className="mt-auto flex gap-1">
               <MdUpdate />
               <p className="text-xs">{dateFormat(book.updatedAt, "fullDate")}</p>
+            </div>
+            <div className="flex ml-auto gap-4">
+              <Button color={"light"}>
+                <BsBook className="h-4 w-4 mr-1" />
+                Subscribe
+              </Button>
+              {isMyBook && (
+                <Link href={Routes.EditBookPage({ bookId: book.id })}>
+                  <Button color={"failure"}>
+                    <BsPencil className="w-4 h-4 mr-1" />
+                    Edit
+                  </Button>
+                </Link>
+              )}
             </div>
           </div>
         </div>

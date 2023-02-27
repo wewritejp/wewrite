@@ -33,3 +33,7 @@ article {
 .link {
   @apply hover:underline
 }
+
+.sentence {
+  @apply whitespace-pre-wrap
+}
