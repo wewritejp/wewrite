@@ -1,3 +1,4 @@
+import { Routes } from "@blitzjs/next"
 import { Navbar as FlowbiteNavbar, Button } from "flowbite-react"
 import Link from "next/link"
 
@@ -26,8 +27,12 @@ const Navbar = () => {
         <FlowbiteNavbar.Link href="#">Contact</FlowbiteNavbar.Link>
       </FlowbiteNavbar.Collapse>
       <div className="flex md:order-2 gap-4">
-        <Button color="gray">Login</Button>
-        <Button color="gray">Register</Button>
+        <Link href={Routes.LoginPage()}>
+          <Button color="gray">Login</Button>
+        </Link>
+        <Link href={Routes.SignupPage()}>
+          <Button color="gray">Register</Button>
+        </Link>
         <FlowbiteNavbar.Toggle />
       </div>
     </FlowbiteNavbar>
