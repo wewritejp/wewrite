@@ -12,5 +12,3 @@ export const useMyBook = (book: Book) => {
 
   return { isMyBook }
 }
-
-export default useMyBook
