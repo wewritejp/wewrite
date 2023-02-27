@@ -15,7 +15,7 @@ const Layout: BlitzLayout<{ title?: string; children?: React.ReactNode }> = ({
       </Head>
 
       <Navbar />
-      <div className="p-2">{children}</div>
+      {children}
     </>
   )
 }
