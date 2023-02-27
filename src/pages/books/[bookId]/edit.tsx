@@ -10,7 +10,7 @@ import Layout from "src/core/layouts/Layout"
 import getBook from "src/books/queries/getBook"
 import updateBook from "src/books/mutations/updateBook"
 import { BookForm, FORM_ERROR } from "src/books/components/BookForm"
-import { UpdateBook } from "src/books/validation"
+import { UpdateBook } from "src/books/validations"
 
 export const EditBook = () => {
   const router = useRouter()

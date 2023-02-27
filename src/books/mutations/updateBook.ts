@@ -1,6 +1,6 @@
 import { resolver } from "@blitzjs/rpc"
 import db from "db"
-import { UpdateBook } from "../validation"
+import { UpdateBook } from "../validations"
 
 export default resolver.pipe(
   resolver.zod(UpdateBook),
