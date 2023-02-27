@@ -1,23 +1,25 @@
 import { useMutation } from "@blitzjs/rpc"
-import { Avatar, Dropdown } from "flowbite-react"
+import { Dropdown } from "flowbite-react"
 import { useCurrentUser } from "src/users/hooks/useCurrentUser"
 import logout from "src/auth/mutations/logout"
+import Gravatar from "react-gravatar"
+import { useRouter } from "next/router"
 
 const NavbarIcon = () => {
   const currentUser = useCurrentUser()
+  const router = useRouter()
   const [logoutMutation] = useMutation(logout)
   const handleLogout = async () => {
     await logoutMutation()
+    router.push('/')
   }
 
   return (
     <Dropdown
       label={
-        <Avatar
-          alt="User settings"
-          img="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-          rounded
-        />
+        <div className="h-10 w-10">
+          <Gravatar email={currentUser?.email} className="rounded-full" />
+        </div>
       }
       arrowIcon={false}
       inline={true}
