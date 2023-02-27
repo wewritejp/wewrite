@@ -1,8 +1,14 @@
+import { useMutation } from "@blitzjs/rpc"
 import { Avatar, Dropdown } from "flowbite-react"
 import { useCurrentUser } from "src/users/hooks/useCurrentUser"
+import logout from "src/auth/mutations/logout"
 
 const NavbarIcon = () => {
   const currentUser = useCurrentUser()
+  const [logoutMutation] = useMutation(logout)
+  const handleLogout = async () => {
+    await logoutMutation()
+  }
 
   return (
     <Dropdown
@@ -24,7 +30,7 @@ const NavbarIcon = () => {
       <Dropdown.Item>Settings</Dropdown.Item>
       <Dropdown.Item>Earnings</Dropdown.Item>
       <Dropdown.Divider />
-      <Dropdown.Item>Sign out</Dropdown.Item>
+      <Dropdown.Item onClick={handleLogout}>Sign out</Dropdown.Item>
     </Dropdown>
   )
 }
