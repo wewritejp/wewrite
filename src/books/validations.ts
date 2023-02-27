@@ -22,8 +22,7 @@ export const CreateBook = z.object({
   price,
   purpose,
   content,
-  note,
-  userId,
+  note
 })
 
 export const UpdateBook = z.object({
