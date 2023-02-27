@@ -13,45 +13,13 @@ const BookDescription = ({ book }) => {
           <article>
             <h3 className="headline">{book.purpose}</h3>
             <div>
-              <p>
-                今日、フロントエンドの開発では、多くのプロジェクトがTypeScriptとReactを採用しています。2022年では、フロントエンド界隈でReactが最も人気があったという調査結果が出ています。
-              </p>
-              <a href="https://tsh.io/state-of-frontend/#which-of-the-following-libraries-would-you-like-to-learn-in-the-future">
-                https://tsh.io/state-of-frontend/#which-of-the-following-libraries-would-you-like-to-learn-in-the-future
-              </a>
-              <p>
-                また、「昨年TypeScriptを使用しましたか」という質問に対し、 84.1%
-                の人が「使用した」と答えました。
-              </p>
-              <a
-                href="
-            https://tsh.io/state-of-frontend/#over-last-year-have-you-used-typescript
-            "
-              >
-                https://tsh.io/state-of-frontend/#over-last-year-have-you-used-typescript
-              </a>
-              <p>
-                Reactだけでも学習が難しいのに、そこにTypeScriptの書き方まで入ってくると、どの部分がReactの構文で、どの部分がTypeScriptの構文なのか、初学者には見分けがつきません。筆者も昔そうでした。
-              </p>
-              <p>
-                この教材では、検索ボックスから画像の一覧を取得するだけの簡単なアプリケーションを作ります。
-              </p>
-              <p>
-                そのアプリケーション開発を通して、Reactが近年どのように書き方が変わってきたのか（クラスコンポーネントから関数コンポーネント・Hooksを使った書き換え）、Reactの基本的な書き方を学びます。
-              </p>
-              <p>
-                最後に、アプリケーションにTypeScriptを導入し、TypeScriptの基本的な構文、TypeScriptを導入するとどのように開発が便利になるのか学びます。
-              </p>
-              <p>
-                この教材を1周すれば、どこまでがReactでどこからがTypeScriptなのかを理解することができ、今後の学習を加速させてくれることでしょう。
-              </p>
+              {book.content}
             </div>
           </article>
           <article>
             <h3 className="headline">Note</h3>
             <div>
-              <p>この教材には政治的な思想が一部含まれています</p>
-              <p>また、戦争に関する写真も含まれています</p>
+              {book.note}
             </div>
           </article>
           <article>
@@ -96,7 +64,7 @@ const BookDescription = ({ book }) => {
             <div className="flex gap-4 p-2">
               <div className="flex flex-col gap-2">
                 <Avatar size={"xl"} rounded />
-                <h4 className="mx-auto">higakijin</h4>
+                <h4 className="mx-auto">{book.user.name}</h4>
               </div>
               <p className="my-auto">
                 現在は教育業界でサーバーサイド・フロントエンドエンジニアとして働きながら、休日は個人サービスの開発を楽しんでいます。RubyとVimがとっても好きです。Twitterアカウント：@rails_java_like

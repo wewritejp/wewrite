@@ -5,7 +5,7 @@ const Navbar = () => {
   return (
     <FlowbiteNavbar fluid={true} id="navbar">
       <Link href="/">
-        <div className="flex">
+        <a className="flex">
           <img
             src="https://flowbite.com/docs/images/logo.svg"
             className="mr-3 h-6 sm:h-9"
@@ -14,7 +14,7 @@ const Navbar = () => {
           <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
             WeWrite
           </span>
-        </div>
+        </a>
       </Link>
       <FlowbiteNavbar.Collapse>
         <FlowbiteNavbar.Link href="#" active={true}>
