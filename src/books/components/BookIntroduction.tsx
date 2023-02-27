@@ -5,7 +5,7 @@ import { MdUpdate } from "react-icons/md"
 import Tags from "src/core/components/Tags"
 import Breadcrumb from "src/core/components/Breadcrumb"
 import { BsPencil, BsBook } from "react-icons/bs"
-import useMyBook from "hooks/useMyBook"
+import { useMyBook } from "hooks/useMyBook"
 import Link from "next/link"
 import { Routes } from "@blitzjs/next"
 
