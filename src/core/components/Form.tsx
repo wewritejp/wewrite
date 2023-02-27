@@ -59,9 +59,9 @@ export function Form<S extends z.ZodType<any, any>>({
         {children}
 
         {formError && (
-          <TextInput role="alert" className="text-red-500">
+          <p role="alert" className="text-red-500">
             {formError}
-          </TextInput>
+          </p>
         )}
 
         {submitText && (
