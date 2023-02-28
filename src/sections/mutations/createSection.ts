@@ -1,19 +1,16 @@
-import { resolver } from "@blitzjs/rpc";
-import db from "db";
-import { z } from "zod";
-
-const CreateSection = z.object({
-  name: z.string(),
-  bookId: z.number(),
-});
+import { resolver } from "@blitzjs/rpc"
+import db from "db"
+import { CreateSection } from "../validations"
 
 export default resolver.pipe(
   resolver.zod(CreateSection),
   resolver.authorize(),
-  async (input) => {
-    // TODO: in multi-tenant app, you must add validation to ensure correct tenant
-    const section = await db.section.create({ data: input });
+  async (input, ctx) => {
+    const currentUser = ctx.session.userId
+    
 
-    return section;
+    const section = await db.section.create({ data: input })
+
+    return section
   }
-);
+)
