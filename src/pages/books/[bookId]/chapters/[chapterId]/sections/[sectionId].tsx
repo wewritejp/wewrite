@@ -40,8 +40,8 @@ export const Section = () => {
           type="button"
           onClick={async () => {
             if (window.confirm("This will be deleted")) {
-              await deleteSectionMutation({ id: section.id });
-              await router.push(Routes.SectionsPage({ bookId: bookId! }));
+              // await deleteSectionMutation({ id: section.id });
+              // await router.push(Routes.SectionsPage({ bookId: bookId! }));
             }
           }}
           style={{ marginLeft: "0.5rem" }}
@@ -58,11 +58,6 @@ const ShowSectionPage = () => {
 
   return (
     <div>
-      <p>
-        <Link href={Routes.SectionsPage({ bookId: bookId! })}>
-          <a>Sections</a>
-        </Link>
-      </p>
 
       <Suspense fallback={<div>Loading...</div>}>
         <Section />
