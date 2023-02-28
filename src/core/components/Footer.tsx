@@ -17,7 +17,7 @@ const Footer = () => {
               href="https://flowbite.com"
               src="https://flowbite.com/docs/images/logo.svg"
               alt="Flowbite Logo"
-              name="Flowbite"
+              name="WeWrite"
             />
           </div>
           <div className="grid grid-cols-2 gap-8 sm:mt-4 sm:grid-cols-3 sm:gap-6">
@@ -50,7 +50,7 @@ const Footer = () => {
         </div>
         <FlowbiteFooter.Divider />
         <div className="w-full sm:flex sm:items-center sm:justify-between">
-          <FlowbiteFooter.Copyright href="#" by="Flowbite™" year={2022} />
+          <FlowbiteFooter.Copyright href="#" by="WeWrite" year={2022} />
           <div className="mt-4 flex space-x-6 sm:mt-0 sm:justify-center">
             <FlowbiteFooter.Icon href="#" icon={BsFacebook} />
             <FlowbiteFooter.Icon href="#" icon={BsInstagram} />
