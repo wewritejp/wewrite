@@ -6,6 +6,9 @@ import { useMyBook } from "../hooks/useMyBook"
 import { Routes } from "@blitzjs/next"
 import { Chapter } from "@prisma/client"
 import { MdDelete } from "react-icons/md"
+import { useMutation } from "@blitzjs/rpc"
+import deleteChapter from "src/chapters/mutations/deleteChapter"
+import { useRouter } from "next/router"
 
 type Props = {
   book: Book & { chapters: Chapter[] }
@@ -13,6 +16,15 @@ type Props = {
 
 const BookTableOfContent: FC<Props> = ({ book }) => {
   const { isMyBook } = useMyBook(book)
+  const [deleteChapterMutation] = useMutation(deleteChapter)
+  const router = useRouter()
+
+  const handleDeleteChapter = async (chapterId: string) => {
+    if (confirm("Delete Chapter?")) {
+      await deleteChapterMutation({ id: chapterId })
+      await router.push(Routes.ShowBookPage({ bookId: book.id }))
+    }
+  }
 
   return (
     <div className="flex flex-col gap-8 py-2">
@@ -55,9 +67,13 @@ const BookTableOfContent: FC<Props> = ({ book }) => {
             <div className="flex pb-4">
               <h3 className="text-blue-800 w-28 my-auto">Section {index + 1}</h3>
               <h4 className="my-auto">{chapter.headline}</h4>
-              {isMyBook  && (
+              {isMyBook && (
                 <div className="ml-auto">
-                  <Button color="failure" size={"xs"}>
+                  <Button
+                    color="failure"
+                    size={"xs"}
+                    onClick={() => handleDeleteChapter(chapter.id)}
+                  >
                     <MdDelete className="h-4 w-4 mx-2" />
                   </Button>
                 </div>

@@ -7,20 +7,22 @@ const CreateChapter = z.object({
   bookId: z.string(),
 })
 
-export default resolver.pipe(resolver.zod(CreateChapter), resolver.authorize(), async (input, ctx) => {
-  const currentUserId = ctx.session.userId
-  const book = await db.book.findFirst({ where: { id: input.bookId }, include: { chapters: true } })
+export default resolver.pipe(
+  resolver.zod(CreateChapter),
+  resolver.authorize(),
+  async (input, ctx) => {
+    const currentUserId = ctx.session.userId
+    const book = await db.book.findFirst({
+      where: { id: input.bookId },
+      include: { chapters: true },
+    })
 
-  if (currentUserId != book?.userId) return
+    if (currentUserId != book?.userId) return
 
-  if (book) {
-    const order = book.chapters.length + 1
-    const data = {
-      ...input,
-      order,
+    if (book) {
+      const chapter = await db.chapter.create({ data: input })
+
+      return chapter
     }
-    const chapter = await db.chapter.create({ data })
-
-    return chapter
   }
-})
+)
