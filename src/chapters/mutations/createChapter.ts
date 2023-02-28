@@ -1,11 +1,6 @@
 import { resolver } from "@blitzjs/rpc"
 import db from "db"
-import { z } from "zod"
-
-const CreateChapter = z.object({
-  headline: z.string(),
-  bookId: z.string(),
-})
+import { CreateChapter } from "../validations"
 
 export default resolver.pipe(
   resolver.zod(CreateChapter),

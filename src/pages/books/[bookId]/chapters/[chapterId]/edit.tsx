@@ -9,6 +9,7 @@ import { ChapterForm, FORM_ERROR } from "src/chapters/components/ChapterForm"
 import { gSSP } from "src/blitz-server"
 import { BlitzPage } from "@blitzjs/auth"
 import { Chapter } from "@prisma/client"
+import { UpdateChapter } from "src/chapters/validations"
 
 type Props = {
   chapter: Chapter
@@ -30,17 +31,11 @@ const EditChapterPage: BlitzPage<Props> = ({ chapter }) => {
         <h1 className="text-2xl font-semibold">Edit ‘‘{chapter.headline}‘‘</h1>
         <ChapterForm
           submitText="Update Chapter"
-          // TODO use a zod schema for form validation
-          //  - Tip: extract mutation's schema into a shared `validations.ts` file and
-          //         then import and use it here
-          // schema={UpdateChapter}
+          schema={UpdateChapter}
           initialValues={chapter}
           onSubmit={async (values) => {
             try {
-              await updateChapterMutation({
-                id: chapter.id,
-                ...values,
-              })
+              await updateChapterMutation(values)
               await router.push(
                 Routes.ShowBookPage({
                   bookId: chapter.bookId,
