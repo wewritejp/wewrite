@@ -40,12 +40,6 @@ const NewSectionPage = () => {
           }
         }}
       />
-
-      <p>
-        <Link href={Routes.SectionsPage({ bookId: bookId! })}>
-          <a>Sections</a>
-        </Link>
-      </p>
     </Layout>
   );
 };
