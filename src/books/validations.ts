@@ -14,8 +14,6 @@ export const content = z.string().min(10).max(9999)
 
 export const note = z.string().min(10).max(9999)
 
-export const userId = z.string()
-
 export const CreateBook = z.object({
   title,
   body,

@@ -1,23 +1,21 @@
 import { resolver } from "@blitzjs/rpc"
 import db from "db"
 import { CreateChapter } from "../validations"
+import getBook from "src/books/queries/getBook"
 
 export default resolver.pipe(
   resolver.zod(CreateChapter),
   resolver.authorize(),
   async (input, ctx) => {
+    console.log(input.bookId)
+    console.log(typeof input.bookId)
+    const book = await getBook({ id: input.bookId }, ctx)
     const currentUserId = ctx.session.userId
-    const book = await db.book.findFirst({
-      where: { id: input.bookId },
-      include: { chapters: true },
-    })
 
-    if (currentUserId != book?.userId) return
+    if (currentUserId != book.userId) return
 
-    if (book) {
-      const chapter = await db.chapter.create({ data: input })
+    const chapter = await db.chapter.create({ data: input })
 
-      return chapter
-    }
+    return chapter
   }
 )
