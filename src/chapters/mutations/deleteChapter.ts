@@ -1,18 +1,25 @@
-import { resolver } from "@blitzjs/rpc";
-import db from "db";
-import { z } from "zod";
+import { resolver } from "@blitzjs/rpc"
+import db from "db"
+import { z } from "zod"
 
 const DeleteChapter = z.object({
-  id: z.number(),
-});
+  id: z.string(),
+})
 
 export default resolver.pipe(
   resolver.zod(DeleteChapter),
   resolver.authorize(),
-  async ({ id }) => {
-    // TODO: in multi-tenant app, you must add validation to ensure correct tenant
-    const chapter = await db.chapter.deleteMany({ where: { id } });
+  async ({ id }, ctx) => {
+    const currentUserId = ctx.session.userId
+    const chapter = await db.chapter.findFirst({ where: { id }, include: { book: true } })
+    if (!chapter) return
 
-    return chapter;
+    const { book } = chapter
+
+    if (book.userId != currentUserId) return
+
+    await db.chapter.deleteMany({ where: { id } })
+
+    return chapter
   }
-);
+)
