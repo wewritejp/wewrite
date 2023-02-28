@@ -5,6 +5,7 @@ import { useMutation } from "@blitzjs/rpc"
 import Layout from "src/core/layouts/Layout"
 import createChapter from "src/chapters/mutations/createChapter"
 import { ChapterForm, FORM_ERROR } from "src/chapters/components/ChapterForm"
+import { CreateChapter } from "src/chapters/validations"
 
 const NewChapterPage = () => {
   const router = useRouter()
@@ -18,11 +19,7 @@ const NewChapterPage = () => {
 
         <ChapterForm
           submitText="Create Chapter"
-          // TODO use a zod schema for form validation
-          //  - Tip: extract mutation's schema into a shared `validations.ts` file and
-          //         then import and use it here
-          // schema={CreateChapter}
-          // initialValues={{}}
+          schema={CreateChapter}
           onSubmit={async (values) => {
             try {
               const chapter = await createChapterMutation({

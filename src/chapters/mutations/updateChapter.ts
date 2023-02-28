@@ -1,11 +1,6 @@
 import { resolver } from "@blitzjs/rpc"
 import db from "db"
-import { z } from "zod"
-
-const UpdateChapter = z.object({
-  id: z.string(),
-  headline: z.string(),
-})
+import { UpdateChapter } from "../validations"
 
 export default resolver.pipe(
   resolver.zod(UpdateChapter),
