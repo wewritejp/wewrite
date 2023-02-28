@@ -2,12 +2,16 @@ import { Book } from "@prisma/client"
 import { Button } from "flowbite-react"
 import Link from "next/link"
 import { FC } from "react"
+import { useMyBook } from "../hooks/useMyBook"
+import { Routes } from "@blitzjs/next"
 
 type Props = {
   book: Book
 }
 
 const BookTableOfContent: FC<Props> = ({ book }) => {
+  const { isMyBook } = useMyBook(book)
+
   return (
     <div className="flex flex-col gap-8 py-2">
       <div className="flex flex-col gap-2">
@@ -42,6 +46,12 @@ const BookTableOfContent: FC<Props> = ({ book }) => {
         </div>
         <div className="border-b pb-4 mb-2 text-black">0-2 VSCode のインストール</div>
       </div>
+
+      {isMyBook && (
+        <Link href={Routes.NewChapterPage({ bookId: book.id})}>
+          <Button color={"success"}>Add Section</Button>
+        </Link>
+      )}
     </div>
   )
 }

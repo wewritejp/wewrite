@@ -1,4 +1,3 @@
-import { Avatar } from "flowbite-react"
 import BookTableOfContent from "./BookTableOfContent"
 import BookAuthorProfile from "./BookAuthorProfile"
 
@@ -17,8 +16,8 @@ const BookDescription = ({ book }) => {
     <section className="max-w-4xl mx-auto py-8 px-4">
       <div className="md:grid md:grid-cols-12">
         <div className="md:col-span-12 format">
-          {items.map((item) => (
-            <article>
+          {items.map((item, index) => (
+            <article key={index}>
               <h3 className="headline">{item.headline}</h3>
               {item.body}
             </article>
