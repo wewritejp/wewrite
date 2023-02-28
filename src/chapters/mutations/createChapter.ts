@@ -7,8 +7,6 @@ export default resolver.pipe(
   resolver.zod(CreateChapter),
   resolver.authorize(),
   async (input, ctx) => {
-    console.log(input.bookId)
-    console.log(typeof input.bookId)
     const book = await getBook({ id: input.bookId }, ctx)
     const currentUserId = ctx.session.userId
 

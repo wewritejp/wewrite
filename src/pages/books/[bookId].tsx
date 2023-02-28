@@ -13,7 +13,6 @@ export const getServerSideProps = gSSP(async ({ query, ctx }) => {
 })
 
 const ShowBookPage = ({ book }) => {
-  console.log(book)
   return (
     <Layout title={book.title}>
       <BookIntroduction book={book} />
