@@ -4,9 +4,10 @@ import Link from "next/link"
 import { FC } from "react"
 import { useMyBook } from "../hooks/useMyBook"
 import { Routes } from "@blitzjs/next"
+import { Chapter } from "@prisma/client"
 
 type Props = {
-  book: Book
+  book: Book & { chapters: Chapter[] }
 }
 
 const BookTableOfContent: FC<Props> = ({ book }) => {
@@ -14,7 +15,7 @@ const BookTableOfContent: FC<Props> = ({ book }) => {
 
   return (
     <div className="flex flex-col gap-8 py-2">
-      <div className="flex flex-col gap-2">
+      {/* <div className="flex flex-col gap-2">
         <div className="flex pb-4">
           <h3 className="text-blue-800 w-28 my-auto">Section 0</h3>
           <h4 className="my-auto">はじめに</h4>
@@ -45,13 +46,30 @@ const BookTableOfContent: FC<Props> = ({ book }) => {
           0-1 TypeScript と React で Unsplash 風アプリを作ろう
         </div>
         <div className="border-b pb-4 mb-2 text-black">0-2 VSCode のインストール</div>
-      </div>
+      </div> */}
 
-      {isMyBook && (
-        <Link href={Routes.NewChapterPage({ bookId: book.id})}>
-          <Button color={"success"}>Add Section</Button>
-        </Link>
-      )}
+      <>
+        {book.chapters.map((chapter, index) => (
+          <div className="flex flex-col gap-2" key={index}>
+            <div className="flex pb-4">
+              <h3 className="text-blue-800 w-28 my-auto">Section {chapter.order}</h3>
+              <h4 className="my-auto">{chapter.headline}</h4>
+            </div>
+            <div className="border-b pb-4 mb-2 text-black">
+              0-1 TypeScript と React で Unsplash 風アプリを作ろう
+            </div>
+            <div className="border-b pb-4 mb-2 text-black">0-2 VSCode のインストール</div>
+          </div>
+        ))}
+      </>
+
+      <>
+        {isMyBook && (
+          <Link href={Routes.NewChapterPage({ bookId: book.id })}>
+            <Button color={"success"}>Add Section</Button>
+          </Link>
+        )}
+      </>
     </div>
   )
 }
