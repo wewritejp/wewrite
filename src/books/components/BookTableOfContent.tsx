@@ -63,34 +63,42 @@ const BookTableOfContent: FC<Props> = ({ book }) => {
       </div> */}
 
       <>
-        {book.chapters.map((chapter, index) => (
-          <div className="flex flex-col gap-2" key={index}>
-            <div className="flex pb-4">
-              <h3 className="text-blue-800 w-28 my-auto">Chapter {index + 1}</h3>
-              <h4 className="my-auto">{chapter.headline}</h4>
-              {isMyBook && (
-                <div className="ml-auto flex gap-2">
-                  <Link href={Routes.EditChapterPage({ bookId: book.id, chapterId: chapter.id})}>
-                    <Button color="success" size={"xs"}>
-                      <BsPencil className="h-4 w-4 mx-2" />
-                    </Button>
-                  </Link>
-                  <Button
-                    color="failure"
-                    size={"xs"}
-                    onClick={() => handleDeleteChapter(chapter.id)}
-                  >
-                    <MdDelete className="h-4 w-4 mx-2" />
-                  </Button>
+        {!!book.chapters[0] ? (
+          <>
+            {book.chapters.map((chapter, index) => (
+              <div className="flex flex-col gap-2" key={index}>
+                <div className="flex pb-4">
+                  <h3 className="text-blue-800 w-28 my-auto">Chapter {index + 1}</h3>
+                  <h4 className="my-auto">{chapter.headline}</h4>
+                  {isMyBook && (
+                    <div className="ml-auto flex gap-2">
+                      <Link
+                        href={Routes.EditChapterPage({ bookId: book.id, chapterId: chapter.id })}
+                      >
+                        <Button color="success" size={"xs"}>
+                          <BsPencil className="h-4 w-4 mx-2" />
+                        </Button>
+                      </Link>
+                      <Button
+                        color="failure"
+                        size={"xs"}
+                        onClick={() => handleDeleteChapter(chapter.id)}
+                      >
+                        <MdDelete className="h-4 w-4 mx-2" />
+                      </Button>
+                    </div>
+                  )}
                 </div>
-              )}
-            </div>
-            {/* <div className="border-b pb-4 mb-2 text-black">
-              0-1 TypeScript と React で Unsplash 風アプリを作ろう
-            </div>
-            <div className="border-b pb-4 mb-2 text-black">0-2 VSCode のインストール</div> */}
+                {/* <div className="border-b pb-4 mb-2 text-black">
+            0-1 TypeScript と React で Unsplash 風アプリを作ろう
           </div>
-        ))}
+          <div className="border-b pb-4 mb-2 text-black">0-2 VSCode のインストール</div> */}
+              </div>
+            ))}
+          </>
+        ) : (
+          <p>There is no chapters yet.</p>
+        )}
       </>
 
       <>
