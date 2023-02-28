@@ -14,14 +14,12 @@ export const getServerSideProps = gSSP(async ({ query, ctx }) => {
 
 const ShowBookPage = ({ book }) => {
   return (
-    <div>
+    <Layout title={book.title}>
       <BookIntroduction book={book} />
       <BookDescription book={book} />
       <Footer />
-    </div>
+    </Layout>
   )
 }
-
-ShowBookPage.getLayout = (page) => <Layout>{page}</Layout>
 
 export default ShowBookPage

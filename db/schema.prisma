@@ -37,7 +37,7 @@ model Session {
   publicData         String?
   privateData        String?
 
-  user   User?   @relation(fields: [userId], references: [id])
+  user   User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String?
 }
 
@@ -52,7 +52,7 @@ model Token {
   expiresAt   DateTime
   sentTo      String
 
-  user   User   @relation(fields: [userId], references: [id])
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String
 
   @@unique([hashedToken, type])
@@ -75,6 +75,16 @@ model Book {
   purpose   String
   content   String
   note      String
-  user      User     @relation(fields: [userId], references: [id])
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String
+  chapters  Chapter[]
+}
+
+model Chapter {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  headline  String
+  book      Book      @relation(fields: [bookId], references: [id], onDelete: Cascade)
+  bookId    String
 }

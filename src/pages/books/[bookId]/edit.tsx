@@ -9,6 +9,12 @@ import { BookForm, FORM_ERROR } from "src/books/components/BookForm"
 import { UpdateBook } from "src/books/validations"
 import { gSSP } from "src/blitz-server"
 import Footer from "src/core/components/Footer"
+import { Book } from "@prisma/client"
+import { BlitzPage } from "@blitzjs/auth"
+
+type Props = {
+  book: Book
+}
 
 export const getServerSideProps = gSSP(async ({ query, ctx }) => {
   const id = query.bookId as string
@@ -17,7 +23,7 @@ export const getServerSideProps = gSSP(async ({ query, ctx }) => {
   return { props: { book } }
 })
 
-const EditBookPage = ({ book }) => {
+const EditBookPage: BlitzPage<Props> = ({ book }) => {
   const router = useRouter()
   const [updateBookMutation] = useMutation(updateBook)
 
