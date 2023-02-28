@@ -3,12 +3,13 @@ import { Button } from "flowbite-react"
 import Link from "next/link"
 import { FC } from "react"
 import { useMyBook } from "../hooks/useMyBook"
-import { Routes } from "@blitzjs/next"
 import { Chapter } from "@prisma/client"
 import { MdDelete } from "react-icons/md"
 import { useMutation } from "@blitzjs/rpc"
 import deleteChapter from "src/chapters/mutations/deleteChapter"
 import { useRouter } from "next/router"
+import { BsPencil } from "react-icons/bs"
+import { Routes } from "@blitzjs/next"
 
 type Props = {
   book: Book & { chapters: Chapter[] }
@@ -65,10 +66,15 @@ const BookTableOfContent: FC<Props> = ({ book }) => {
         {book.chapters.map((chapter, index) => (
           <div className="flex flex-col gap-2" key={index}>
             <div className="flex pb-4">
-              <h3 className="text-blue-800 w-28 my-auto">Section {index + 1}</h3>
+              <h3 className="text-blue-800 w-28 my-auto">Chapter {index + 1}</h3>
               <h4 className="my-auto">{chapter.headline}</h4>
               {isMyBook && (
-                <div className="ml-auto">
+                <div className="ml-auto flex gap-2">
+                  <Link href={Routes.EditChapterPage({ bookId: book.id, chapterId: chapter.id})}>
+                    <Button color="success" size={"xs"}>
+                      <BsPencil className="h-4 w-4 mx-2" />
+                    </Button>
+                  </Link>
                   <Button
                     color="failure"
                     size={"xs"}
@@ -90,7 +96,7 @@ const BookTableOfContent: FC<Props> = ({ book }) => {
       <>
         {isMyBook && (
           <Link href={Routes.NewChapterPage({ bookId: book.id })}>
-            <Button color={"success"}>Add Section</Button>
+            <Button color={"success"}>Add Chapter</Button>
           </Link>
         )}
       </>
