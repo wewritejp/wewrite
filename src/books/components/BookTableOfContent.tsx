@@ -102,7 +102,7 @@ const BookTableOfContent: FC<Props> = ({ book }) => {
           </div> */}
                 {chapter.sections.map((section, sectionIndex) => (
                   <div className="border-b pb-4 mb-2 text-black" key={sectionIndex}>
-                    0-2 VSCode のインストール
+                    {chapterIndex + 1}-{sectionIndex + 1} {section.title}
                   </div>
                 ))}
               </div>
