@@ -85,7 +85,6 @@ model Chapter {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   headline  String
-  order     Int
   book      Book      @relation(fields: [bookId], references: [id], onDelete: Cascade)
   bookId    String
 }

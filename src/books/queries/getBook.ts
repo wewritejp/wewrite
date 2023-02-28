@@ -10,7 +10,10 @@ const GetBook = z.object({
 
 export default resolver.pipe(resolver.zod(GetBook), async ({ id }) => {
   // TODO: in multi-tenant app, you must add validation to ensure correct tenant
-  const book = await db.book.findFirst({ where: { id }, include: { user: true, chapters: true } })
+  const book = await db.book.findFirst({
+    where: { id },
+    include: { user: true, chapters: { orderBy: { createdAt: "asc" } } },
+  })
 
   if (!book) throw new NotFoundError()
 
