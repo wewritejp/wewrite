@@ -29,7 +29,7 @@ const NewChapterPage = () => {
                 ...values,
                 bookId: bookId!,
               })
-              await router.push(Routes.ShowBookPage({ bookId: "hogehgoe" }))
+              bookId && await router.push(Routes.ShowBookPage({ bookId }))
             } catch (error: any) {
               console.error(error)
               return {

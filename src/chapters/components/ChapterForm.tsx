@@ -8,7 +8,7 @@ export function ChapterForm<S extends z.ZodType<any, any>>(
 ) {
   return (
     <Form<S> {...props}>
-      <LabeledTextField name="name" label="Name" placeholder="Name" />
+      <LabeledTextField name="headline" label="Headline" placeholder="Headline" />
     </Form>
   );
 }
