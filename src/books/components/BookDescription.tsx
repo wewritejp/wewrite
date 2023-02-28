@@ -1,11 +1,7 @@
-import { Avatar, Button } from "flowbite-react"
-import Link from "next/link"
-import { useRouter } from "next/router"
+import { Avatar } from "flowbite-react"
+import BookTableOfContent from "./BookTableOfContent"
 
 const BookDescription = ({ book }) => {
-  const router = useRouter()
-  const { bookId } = router.query
-
   return (
     <section className="max-w-4xl mx-auto py-8 px-4">
       <div className="md:grid md:grid-cols-12">
@@ -24,40 +20,7 @@ const BookDescription = ({ book }) => {
           </article>
           <article>
             <h3 className="headline">Table Of Content</h3>
-            <div className="flex flex-col gap-8 py-2">
-              <div className="flex flex-col gap-2">
-                <div className="flex pb-4">
-                  <h3 className="text-blue-800 w-28 my-auto">Section 0</h3>
-                  <h4 className="my-auto">はじめに</h4>
-                </div>
-                <div className="border-b pb-4 mb-2 text-black flex">
-                  <span>0-1 TypeScript と React で Unsplash 風アプリを作ろう</span>
-                  <div className="ml-auto">
-                    <Link href={`/books/${bookId}/chapters/1`}>
-                      <Button size={"xs"}>SAMPLE</Button>
-                    </Link>
-                  </div>
-                </div>
-                <div className="border-b pb-4 mb-2 text-black flex">
-                  <span>0-2 VSCode のインストール</span>
-                  <div className="ml-auto">
-                    <Link href={`/books/${bookId}/chapters/1`}>
-                      <Button size={"xs"}>SAMPLE</Button>
-                    </Link>
-                  </div>
-                </div>
-              </div>
-              <div className="flex flex-col gap-2">
-                <div className="flex pb-4">
-                  <h3 className="text-blue-800 w-28 my-auto">Section 1</h3>
-                  <h4 className="my-auto">TypeScriptとReactの開発について知ろう</h4>
-                </div>
-                <div className="border-b pb-4 mb-2 text-black">
-                  0-1 TypeScript と React で Unsplash 風アプリを作ろう
-                </div>
-                <div className="border-b pb-4 mb-2 text-black">0-2 VSCode のインストール</div>
-              </div>
-            </div>
+            <BookTableOfContent book={book} />
           </article>
           <article>
             <h3 className="headline">Author</h3>
