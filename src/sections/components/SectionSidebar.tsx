@@ -1,9 +1,16 @@
-import { Avatar } from "flowbite-react";
-import Link from "next/link";
-import useCalculateHeight from "src/core/hooks/useCalculateHeight";
+import { BlitzPage, Routes, useParam } from "@blitzjs/next"
+import { Book, Chapter, Section, User } from "@prisma/client"
+import { Avatar } from "flowbite-react"
+import Link from "next/link"
+import useCalculateHeight from "src/core/hooks/useCalculateHeight"
 
-const SectionSidebar = () => {
-  const { remainingHeight } = useCalculateHeight();
+type Props = {
+  book: Book & { user: User; chapters: Chapter[] & { sections: Section[] } }
+}
+
+const SectionSidebar: BlitzPage<Props> = ({ book }) => {
+  const { remainingHeight } = useCalculateHeight()
+  const sectionId = useParam("sectionId", "string")!
 
   return (
     <div
@@ -11,109 +18,43 @@ const SectionSidebar = () => {
       style={{ height: remainingHeight }}
     >
       <div className="px-4 py-8">
-        <div className="p-2">
-          <div className="border-b-2 pb-4 mb-8">
-            <h4>
-              狂ってる！世界にあった危険な遊び３選【楽しく放射線・処刑ごっこ・人体破壊おもちゃ】狂ってる！
+        <div className="border-b-2 pb-4 mb-8 px-2">
+          <h4>{book.title}</h4>
+          <div className="flex gap-2">
+            <Avatar size={"sm"} className="text-gray-800" rounded>
+              {book.user.name}
+            </Avatar>
+          </div>
+        </div>
+        {book.chapters.map((chapter: Chapter & { sections: Section[] }, chapterIndex) => (
+          <div className="p-2" key={chapterIndex}>
+            <h4 className="text-blue-800 text-lg">
+              Section {chapterIndex + 1}: {chapter.headline}
             </h4>
-            <div className="flex gap-2">
-              <Avatar size={'sm'} className="text-gray-800" rounded>higakijin</Avatar>
-            </div>
+            {chapter.sections.map((section: Section, sectionIndex) => (
+              <div className="flex flex-col gap-2 pb-1" key={sectionIndex}>
+                <Link
+                  href={Routes.ShowSectionPage({
+                    bookId: book.id,
+                    chapterId: chapter.id,
+                    sectionId: section.id,
+                  })}
+                >
+                  <a
+                    className={`no-underline rounded px-4 py-2 font-semibold text-gray-800 ${
+                      sectionId == section.id && "bg-blue-100"
+                    }`}
+                  >
+                    {chapterIndex + 1}-{sectionIndex + 1} {section.title}
+                  </a>
+                </Link>
+              </div>
+            ))}
           </div>
-          <h4 className="text-blue-800">Section 0: はじめに</h4>
-          <div className="pb-4 flex flex-col gap-2 text-sm">
-            <Link
-              href={"/books/1/chapters/2"}
-              className="font-semibold text-gray-800 px-4 py-2 no-underline"
-            >
-              0-1 TypeScript と React で Unsplash 風アプリを作ろう
-            </Link>
-            <Link
-              href={"/books/1/chapters/2"}
-              className="font-semibold text-gray-800 px-4 py-2 no-underline"
-            >
-              0-2 VSCode のインストール
-            </Link>
-            <Link
-              href={"/books/1/chapters/2"}
-              className="font-semibold text-gray-800 px-4 py-2 no-underline"
-            >
-              0-3 質問の仕方
-            </Link>
-          </div>
-        </div>
-        <div className="p-2">
-          <h4 className="text-blue-800">Section 1: Typescriptとは？</h4>
-          <div className="pb-4 flex flex-col gap-2">
-            <Link
-              href={"/books/1/chapters/2"}
-              className="font-semibold text-gray-800 px-4 py-2 no-underline  bg-blue-100 rounded-sm"
-            >
-              0-1 TypeScript と React で Unsplash 風アプリを作ろう
-            </Link>
-            <Link
-              href={"/books/1/chapters/2"}
-              className="font-semibold text-gray-800 px-4 py-2 no-underline"
-            >
-              0-2 VSCode のインストール
-            </Link>
-            <Link
-              href={"/books/1/chapters/2"}
-              className="font-semibold text-gray-800 px-4 py-2 no-underline"
-            >
-              0-3 質問の仕方
-            </Link>
-          </div>
-        </div>
-        <div className="p-2">
-          <h4 className="text-blue-800">Section 2: 環境構築</h4>
-          <div className="pb-4 flex flex-col gap-2">
-            <Link
-              href={"/books/1/chapters/2"}
-              className="font-semibold text-gray-800 px-4 py-2 no-underline"
-            >
-              0-1 TypeScript と React で Unsplash 風アプリを作ろう
-            </Link>
-            <Link
-              href={"/books/1/chapters/2"}
-              className="font-semibold text-gray-800 px-4 py-2 no-underline"
-            >
-              0-2 VSCode のインストール
-            </Link>
-            <Link
-              href={"/books/1/chapters/2"}
-              className="font-semibold text-gray-800 px-4 py-2 no-underline"
-            >
-              0-3 質問の仕方
-            </Link>
-          </div>
-        </div>
-        <div className="p-2">
-          <h4 className="text-blue-800">Section 3: Javascriptとの比較</h4>
-          <div className="pb-4 flex flex-col gap-2">
-            <Link
-              href={"/books/1/chapters/2"}
-              className="font-semibold text-gray-800 px-4 py-2 no-underline"
-            >
-              0-1 TypeScript と React で Unsplash 風アプリを作ろう
-            </Link>
-            <Link
-              href={"/books/1/chapters/2"}
-              className="font-semibold text-gray-800 px-4 py-2 no-underline"
-            >
-              0-2 VSCode のインストール
-            </Link>
-            <Link
-              href={"/books/1/chapters/2"}
-              className="font-semibold text-gray-800 px-4 py-2 no-underline"
-            >
-              0-3 質問の仕方
-            </Link>
-          </div>
-        </div>
+        ))}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default SectionSidebar;
+export default SectionSidebar
