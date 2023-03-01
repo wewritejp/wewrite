@@ -14,7 +14,10 @@ export default resolver.pipe(resolver.zod(GetBook), async ({ id }) => {
     where: { id },
     include: {
       user: true,
-      chapters: { orderBy: { createdAt: "asc" }, include: { sections: true } },
+      chapters: {
+        orderBy: { createdAt: "asc" },
+        include: { sections: { orderBy: { createdAt: "asc" } } },
+      },
     },
   })
 
