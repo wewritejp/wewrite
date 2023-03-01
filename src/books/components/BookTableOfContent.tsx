@@ -40,7 +40,7 @@ const BookTableOfContent: FC<Props> = ({ book }) => {
                 )}
               </div>
               {chapter.sections.map((section, sectionIndex) => (
-                <div className="border-b pb-4 mb-2 text-black flex">
+                <div className="border-b pb-4 mb-2 text-black flex" key={sectionIndex}>
                   <span>
                     {chapterIndex + 1}-{sectionIndex + 1} {section.title}
                   </span>
