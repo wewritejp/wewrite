@@ -19,7 +19,9 @@ const SectionSidebar: BlitzPage<Props> = ({ book }) => {
     >
       <div className="px-4 py-8">
         <div className="border-b-2 pb-4 mb-8 px-2">
-          <h4>{book.title}</h4>
+          <Link href={Routes.ShowBookPage({ bookId: book.id })}>
+            <h4 className="hover:cursor-pointer">{book.title}</h4>
+          </Link>
           <div className="flex gap-2">
             <Avatar size={"sm"} className="text-gray-800" rounded>
               {book.user.name}

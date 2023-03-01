@@ -1,11 +1,6 @@
-import { Footer as FlowbiteFooter } from "flowbite-react";
-import {
-  BsFacebook,
-  BsInstagram,
-  BsTwitter,
-  BsGithub,
-  BsDribbble,
-} from "react-icons/bs";
+import { Footer as FlowbiteFooter } from "flowbite-react"
+import Link from "next/link"
+import { BsFacebook, BsInstagram, BsTwitter, BsGithub, BsDribbble } from "react-icons/bs"
 
 const Footer = () => {
   return (
@@ -38,12 +33,8 @@ const Footer = () => {
             <div>
               <FlowbiteFooter.Title title="Legal" />
               <FlowbiteFooter.LinkGroup col={true}>
-                <FlowbiteFooter.Link href="#">
-                  Privacy Policy
-                </FlowbiteFooter.Link>
-                <FlowbiteFooter.Link href="#">
-                  Terms & Conditions
-                </FlowbiteFooter.Link>
+                <FlowbiteFooter.Link href="#">Privacy Policy</FlowbiteFooter.Link>
+                <FlowbiteFooter.Link href="#">Terms & Conditions</FlowbiteFooter.Link>
               </FlowbiteFooter.LinkGroup>
             </div>
           </div>
@@ -52,16 +43,21 @@ const Footer = () => {
         <div className="w-full sm:flex sm:items-center sm:justify-between">
           <FlowbiteFooter.Copyright href="#" by="WeWrite" year={2022} />
           <div className="mt-4 flex space-x-6 sm:mt-0 sm:justify-center">
-            <FlowbiteFooter.Icon href="#" icon={BsFacebook} />
-            <FlowbiteFooter.Icon href="#" icon={BsInstagram} />
-            <FlowbiteFooter.Icon href="#" icon={BsTwitter} />
-            <FlowbiteFooter.Icon href="#" icon={BsGithub} />
-            <FlowbiteFooter.Icon href="#" icon={BsDribbble} />
+            <Link href="https://github.com/wewritejp/wewrite">
+              <a target="_blank">
+                <BsGithub className="text-gray-500 h-5 w-5" />
+              </a>
+            </Link>
+            <Link href="https://twitter.com/higakijin">
+              <a target="_blank">
+                <BsTwitter className="text-gray-500 h-5 w-5" />
+              </a>
+            </Link>
           </div>
         </div>
       </div>
     </FlowbiteFooter>
-  );
-};
+  )
+}
 
-export default Footer;
+export default Footer
