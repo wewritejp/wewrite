@@ -45,6 +45,25 @@ const seed = async () => {
 
   for (let i = 0; i < 10; i++) {
     const book = await db.book.create(book_param)
+    const chapter_param = {
+      data: {
+        headline: "坂本龍馬の暗殺",
+        bookId: book.id
+      }
+    }
+    for(let j = 0; j< 5; j++) {
+      const chapter = await db.chapter.create(chapter_param)
+      const section_param = {
+        data: {
+          title: '寺子屋事件',
+          content: '坂本龍馬がついに暗殺されました',
+          chapterId: chapter.id
+        }
+      }
+      for(let k=3; k<4; k++) {
+        const section = await db.section.create(section_param)
+      }
+    }
   }
 }
 
