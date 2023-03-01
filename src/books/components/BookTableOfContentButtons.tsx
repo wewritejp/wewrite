@@ -10,6 +10,7 @@ import { HiPlus } from "react-icons/hi"
 import { HiOutlinePencilAlt } from "react-icons/hi"
 import { IoMdClose } from "react-icons/io"
 import { AiOutlineEye } from "react-icons/ai"
+import deleteSection from "src/sections/mutations/deleteSection"
 
 // Chater Buttons
 // ===========================================================
@@ -93,8 +94,16 @@ export const EditSectionButton = ({ book, chapter, section }) => {
 }
 
 export const DeleteSectionButton = ({ book, chapter, section }) => {
+  const router = useRouter()
+  const [deleteSectionMutation] = useMutation(deleteSection)
+  const handleDelete = async () => {
+    if (confirm("Delete Chapter?")) {
+      await deleteSectionMutation({ id: section.id })
+      await router.push(Routes.ShowBookPage({ bookId: book.id }))
+    }
+  }
   return (
-    <Button size={"xs"} color={"failure"} outline>
+    <Button size={"xs"} color={"failure"} outline onClick={handleDelete}>
       <IoMdClose />
     </Button>
   )
