@@ -12,8 +12,8 @@ import deleteSection from "src/sections/mutations/deleteSection";
 
 export const Section = () => {
   const router = useRouter();
-  const sectionId = useParam("sectionId", "number");
-  const bookId = useParam("bookId", "number");
+  const sectionId = useParam("sectionId", "string");
+  const bookId = useParam("bookId", "string");
   const [deleteSectionMutation] = useMutation(deleteSection);
   const [section] = useQuery(getSection, { id: sectionId });
 
@@ -27,14 +27,14 @@ export const Section = () => {
         <h1>Section {section.id}</h1>
         <pre>{JSON.stringify(section, null, 2)}</pre>
 
-        <Link
+        {/* <Link
           href={Routes.EditSectionPage({
             bookId: bookId!,
             sectionId: section.id,
           })}
         >
           <a>Edit</a>
-        </Link>
+        </Link> */}
 
         <button
           type="button"
@@ -65,8 +65,6 @@ const ShowSectionPage = () => {
     </div>
   );
 };
-
-ShowSectionPage.authenticate = true;
 ShowSectionPage.getLayout = (page) => <Layout>{page}</Layout>;
 
 export default ShowSectionPage;

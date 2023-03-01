@@ -13,6 +13,7 @@ import { Routes } from "@blitzjs/next"
 import { HiPlus } from "react-icons/hi"
 import { HiOutlinePencilAlt } from "react-icons/hi"
 import { IoMdClose } from "react-icons/io"
+import { AiOutlineEye } from "react-icons/ai"
 
 type Props = {
   book: Book & { chapters: Chapter[] & { sections: Section[] } }
@@ -73,6 +74,17 @@ const BookTableOfContent: FC<Props> = ({ book }) => {
                     </span>
 
                     <div className="ml-auto flex gap-1">
+                      <Link
+                        href={Routes.ShowSectionPage({
+                          bookId: book.id,
+                          chapterId: chapter.id,
+                          sectionId: section.id,
+                        })}
+                      >
+                        <Button size={"xs"} outline>
+                          <AiOutlineEye />
+                        </Button>
+                      </Link>
                       <Link
                         href={Routes.EditSectionPage({
                           bookId: book.id,
