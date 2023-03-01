@@ -9,7 +9,7 @@ const Navbar = () => {
   const isSignedIn = useIsSignedIn()
 
   return (
-    <FlowbiteNavbar fluid={true} id="navbar">
+    <FlowbiteNavbar fluid={true} id="navbar" className="border-b">
       <Link href="/">
         <a className="flex">
           <img
