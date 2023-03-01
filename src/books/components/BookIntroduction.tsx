@@ -59,7 +59,7 @@ const BookIntroduction = ({ book }) => {
               </Button>
               {isMyBook && (
                 <Link href={Routes.EditBookPage({ bookId: book.id })}>
-                  <Button color={"failure"}>
+                  <Button color='warning'>
                     <BsPencil className="w-4 h-4 mr-1" />
                     Edit
                   </Button>

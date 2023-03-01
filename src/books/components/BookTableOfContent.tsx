@@ -10,7 +10,9 @@ import deleteChapter from "src/chapters/mutations/deleteChapter"
 import { useRouter } from "next/router"
 import { BsPencil } from "react-icons/bs"
 import { Routes } from "@blitzjs/next"
-import { HiPlus } from 'react-icons/hi'
+import { HiPlus } from "react-icons/hi"
+import { HiOutlinePencilAlt } from "react-icons/hi"
+import { IoMdClose } from "react-icons/io"
 
 type Props = {
   book: Book & { chapters: Chapter[] & { sections: Section[] } }
@@ -30,39 +32,6 @@ const BookTableOfContent: FC<Props> = ({ book }) => {
 
   return (
     <div className="flex flex-col gap-8 py-2">
-      {/* <div className="flex flex-col gap-2">
-        <div className="flex pb-4">
-          <h3 className="text-blue-800 w-28 my-auto">Section 0</h3>
-          <h4 className="my-auto">はじめに</h4>
-        </div>
-        <div className="border-b pb-4 mb-2 text-black flex">
-          <span>0-1 TypeScript と React で Unsplash 風アプリを作ろう</span>
-          <div className="ml-auto">
-            <Link href={`/books/${book.id}/chapters/1`}>
-              <Button size={"xs"}>SAMPLE</Button>
-            </Link>
-          </div>
-        </div>
-        <div className="border-b pb-4 mb-2 text-black flex">
-          <span>0-2 VSCode のインストール</span>
-          <div className="ml-auto">
-            <Link href={`/books/${book.id}/chapters/1`}>
-              <Button size={"xs"}>SAMPLE</Button>
-            </Link>
-          </div>
-        </div>
-      </div>
-      <div className="flex flex-col gap-2">
-        <div className="flex pb-4">
-          <h3 className="text-blue-800 w-28 my-auto">Section 1</h3>
-          <h4 className="my-auto">TypeScriptとReactの開発について知ろう</h4>
-        </div>
-        <div className="border-b pb-4 mb-2 text-black">
-          0-1 TypeScript と React で Unsplash 風アプリを作ろう
-        </div>
-        <div className="border-b pb-4 mb-2 text-black">0-2 VSCode のインストール</div>
-      </div> */}
-
       <>
         {!!book.chapters[0] ? (
           <>
@@ -77,14 +46,14 @@ const BookTableOfContent: FC<Props> = ({ book }) => {
                         href={Routes.NewSectionPage({ bookId: book.id, chapterId: chapter.id })}
                       >
                         <Button size={"xs"}>
-                          <HiPlus className="h-4 w-4 mx-1" />
+                          <HiPlus className="h-4 w-4" />
                         </Button>
                       </Link>
                       <Link
                         href={Routes.EditChapterPage({ bookId: book.id, chapterId: chapter.id })}
                       >
                         <Button color="success" size={"xs"}>
-                          <BsPencil className="h-4 w-4 mx-1" />
+                          <BsPencil className="h-4 w-4" />
                         </Button>
                       </Link>
                       <Button
@@ -92,17 +61,33 @@ const BookTableOfContent: FC<Props> = ({ book }) => {
                         size={"xs"}
                         onClick={() => handleDeleteChapter(chapter.id)}
                       >
-                        <MdDelete className="h-4 w-4 mx-1" />
+                        <MdDelete className="h-4 w-4" />
                       </Button>
                     </div>
                   )}
                 </div>
-                {/* <div className="border-b pb-4 mb-2 text-black">
-            0-1 TypeScript と React で Unsplash 風アプリを作ろう
-          </div> */}
                 {chapter.sections.map((section, sectionIndex) => (
-                  <div className="border-b pb-4 mb-2 text-black" key={sectionIndex}>
-                    {chapterIndex + 1}-{sectionIndex + 1} {section.title}
+                  <div className="border-b pb-4 mb-2 text-black flex">
+                    <span>
+                      {chapterIndex + 1}-{sectionIndex + 1} {section.title}
+                    </span>
+
+                    <div className="ml-auto flex gap-1">
+                      <Link
+                        href={Routes.EditSectionPage({
+                          bookId: book.id,
+                          chapterId: chapter.id,
+                          sectionId: section.id,
+                        })}
+                      >
+                        <Button size={"xs"} color={"success"} outline>
+                          <HiOutlinePencilAlt />
+                        </Button>
+                      </Link>
+                      <Button size={"xs"} color={"failure"} outline>
+                        <IoMdClose />
+                      </Button>
+                    </div>
                   </div>
                 ))}
               </div>
