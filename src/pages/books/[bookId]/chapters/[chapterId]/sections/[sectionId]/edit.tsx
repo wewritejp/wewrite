@@ -1,40 +1,36 @@
-import { Suspense } from "react";
-import { Routes } from "@blitzjs/next";
-import Head from "next/head";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import { useQuery, useMutation } from "@blitzjs/rpc";
-import { useParam } from "@blitzjs/next";
+import { Routes } from "@blitzjs/next"
+import { useRouter } from "next/router"
+import { useMutation } from "@blitzjs/rpc"
+import { useParam } from "@blitzjs/next"
 
-import Layout from "src/core/layouts/Layout";
-import getSection from "src/sections/queries/getSection";
-import updateSection from "src/sections/mutations/updateSection";
-import { SectionForm, FORM_ERROR } from "src/sections/components/SectionForm";
+import Layout from "src/core/layouts/Layout"
+import getSection from "src/sections/queries/getSection"
+import updateSection from "src/sections/mutations/updateSection"
+import { SectionForm, FORM_ERROR } from "src/sections/components/SectionForm"
+import { gSSP } from "src/blitz-server"
+import { Section } from "@prisma/client"
+import { BlitzPage } from "@blitzjs/auth"
 
-export const EditSection = () => {
-  const router = useRouter();
-  const sectionId = useParam("sectionId", "number");
-  const bookId = useParam("bookId", "number");
-  const [section, { setQueryData }] = useQuery(
-    getSection,
-    { id: sectionId },
-    {
-      // This ensures the query never refreshes and overwrites the form data while the user is editing.
-      staleTime: Infinity,
-    }
-  );
-  const [updateSectionMutation] = useMutation(updateSection);
+type Props = {
+  section: Section
+}
+
+export const getServerSideProps = gSSP(async ({ query, ctx }) => {
+  const id = query.sectionId as string
+  const section = await getSection({ id }, ctx)
+
+  return { props: { section } }
+})
+
+const EditSectionPage: BlitzPage<Props> = ({ section }) => {
+  const router = useRouter()
+  const [updateSectionMutation] = useMutation(updateSection)
+  const bookId = useParam("bookId", "string")!
 
   return (
-    <>
-      <Head>
-        <title>Edit Section {section.id}</title>
-      </Head>
-
-      <div>
-        <h1>Edit Section {section.id}</h1>
-        <pre>{JSON.stringify(section, null, 2)}</pre>
-
+    <Layout title={"Edit Section"}>
+      <div className="max-w-2xl mx-auto flex flex-col gap-4 p-4">
+        <h1 className="text-2xl font-semibold">Edit ‘‘{section.title}‘‘</h1>
         <SectionForm
           submitText="Update Section"
           // TODO use a zod schema for form validation
@@ -44,49 +40,24 @@ export const EditSection = () => {
           initialValues={section}
           onSubmit={async (values) => {
             try {
-              const updated = await updateSectionMutation({
+              await updateSectionMutation({
                 id: section.id,
                 ...values,
-              });
-              await setQueryData(updated);
-              await router.push(
-                Routes.ShowSectionPage({
-                  bookId: bookId!,
-                  sectionId: updated.id,
-                })
-              );
+              })
+              await router.push(Routes.ShowBookPage({ bookId }))
             } catch (error: any) {
-              console.error(error);
+              console.error(error)
               return {
                 [FORM_ERROR]: error.toString(),
-              };
+              }
             }
           }}
         />
       </div>
-    </>
-  );
-};
+    </Layout>
+  )
+}
 
-const EditSectionPage = () => {
-  const bookId = useParam("bookId", "number");
+EditSectionPage.authenticate = true
 
-  return (
-    <div>
-      <Suspense fallback={<div>Loading...</div>}>
-        <EditSection />
-      </Suspense>
-
-      <p>
-        <Link href={Routes.SectionsPage({ bookId: bookId! })}>
-          <a>Sections</a>
-        </Link>
-      </p>
-    </div>
-  );
-};
-
-EditSectionPage.authenticate = true;
-EditSectionPage.getLayout = (page) => <Layout>{page}</Layout>;
-
-export default EditSectionPage;
+export default EditSectionPage
