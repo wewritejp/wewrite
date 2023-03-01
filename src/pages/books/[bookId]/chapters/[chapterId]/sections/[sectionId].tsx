@@ -23,7 +23,7 @@ const ShowSectionPage = ({ book, chapter, section }) => {
           <SectionSidebar book={book} />
         </div>
         <div className="md:col-span-9">
-          <SectionContent />
+          <SectionContent book={book} chapter={chapter} section={section} />
         </div>
       </div>
     </Layout>
