@@ -103,7 +103,7 @@ const Home: BlitzPage<Props> = ({ books }) => {
                 <div className="mt-4">
                   <h3 className="text-xl font-bold text-blue-700 sm:text-2xl">Enjoy everything</h3>
 
-                  <p className="mt-4 text-gray-600">Let's start WeWrite!</p>
+                  <p className="mt-4 text-gray-600">{"Let's start WeWrite!"}</p>
                 </div>
               </div>
             </blockquote>
