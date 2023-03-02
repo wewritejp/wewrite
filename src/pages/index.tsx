@@ -4,6 +4,7 @@ import { Book } from "@prisma/client"
 import { Button, Card } from "flowbite-react"
 import Link from "next/link"
 import { gSSP } from "src/blitz-server"
+import BookCard from "src/books/components/BookCard"
 import getBooks from "src/books/queries/getBooks"
 import Footer from "src/core/components/Footer"
 import Layout from "src/core/layouts/Layout"
@@ -52,18 +53,7 @@ const Home: BlitzPage<Props> = ({ books }) => {
         <h1 className="mx-auto text-4xl font-bold text-blue-700">Popular Articles</h1>
         <div className="max-w-5xl grid md:grid-cols-3 gap-8 mx-auto py-10 px-4">
           {books.map((book, bookIndex) => (
-            <Link href={Routes.ShowBookPage({ bookId: book.id })} key={bookIndex}>
-              <a>
-                <Card imgSrc="https://i.ytimg.com/vi/-UjD_YrVhUM/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLB-Jl1S1fLGAmlaj_7Jg8oE7dXCmw">
-                  <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                    {book.title}
-                  </h5>
-                  <p className="font-normal text-gray-700 dark:text-gray-400 line-clamp-3">
-                    {book.body}
-                  </p>
-                </Card>
-              </a>
-            </Link>
+            <BookCard key={bookIndex} book={book} />
           ))}
         </div>
       </section>
