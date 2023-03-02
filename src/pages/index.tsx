@@ -18,7 +18,6 @@ export const getServerSideProps = gSSP(async ({ ctx }) => {
 })
 
 const Home: BlitzPage<Props> = ({ books }) => {
-  console.log(books)
   return (
     <Layout title="Home">
       <section className="relative bg-[url(https://pds.exblog.jp/pds/1/202102/05/63/f0347663_14193922.jpg)] bg-cover bg-center bg-no-repeat">
