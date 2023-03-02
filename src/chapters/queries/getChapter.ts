@@ -8,9 +8,12 @@ const GetChapter = z.object({
   id: z.string().optional().refine(Boolean, "Required"),
 })
 
-export default resolver.pipe(resolver.zod(GetChapter), resolver.authorize(), async ({ id }) => {
+export default resolver.pipe(resolver.zod(GetChapter), async ({ id }) => {
   // TODO: in multi-tenant app, you must add validation to ensure correct tenant
-  const chapter = await db.chapter.findFirst({ where: { id }, include: { book: true } })
+  const chapter = await db.chapter.findFirst({
+    where: { id },
+    include: { book: true, sections: true },
+  })
 
   if (!chapter) throw new NotFoundError()
 
