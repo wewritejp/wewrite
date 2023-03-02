@@ -8,8 +8,14 @@ import { BsPencil, BsBook } from "react-icons/bs"
 import { useMyBook } from "src/books/hooks/useMyBook"
 import Link from "next/link"
 import { Routes } from "@blitzjs/next"
+import { Book, User } from "@prisma/client"
+import { FC } from "react"
 
-const BookIntroduction = ({ book }) => {
+type Props = {
+  book: Book & { user: User }
+}
+
+const BookIntroduction: FC<Props> = ({ book }) => {
   const { isMyBook } = useMyBook(book)
 
   return (
@@ -35,12 +41,7 @@ const BookIntroduction = ({ book }) => {
           </div>
           <div className="flex-row md:grid md:grid-cols-12 gap-8">
             <div className="pb-4 md:col-span-5">
-              <Image
-                src="https://i.ytimg.com/vi/-UjD_YrVhUM/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLB-Jl1S1fLGAmlaj_7Jg8oE7dXCmw"
-                alt="thubnail"
-                width={4000}
-                height={2000}
-              />
+              <img src={book.imageUrl} alt="thubnail" width={4000} height={2000} className="rounded" />
             </div>
             <h2 className="md:col-span-7">{book.body}</h2>
           </div>
@@ -59,7 +60,7 @@ const BookIntroduction = ({ book }) => {
               </Button>
               {isMyBook && (
                 <Link href={Routes.EditBookPage({ bookId: book.id })}>
-                  <Button color='warning'>
+                  <Button color="warning">
                     <BsPencil className="w-4 h-4 mr-1" />
                     Edit
                   </Button>
