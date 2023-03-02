@@ -21,7 +21,7 @@ export default resolver.pipe(
       take,
       count: () => db.book.count({ where }),
       query: (paginateArgs) =>
-        db.book.findMany({ ...paginateArgs, where, orderBy }),
+        db.book.findMany({ ...paginateArgs, where, orderBy, include: { user: true } }),
     });
 
     return {
