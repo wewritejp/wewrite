@@ -4,8 +4,10 @@ import Link from "next/link"
 import { Suspense } from "react"
 import { useIsSignedIn } from "src/users/hooks/useIsSignedIn"
 import NavbarIcon from "./NavbarIcon"
+import { useRouter } from "next/router"
 
 const Navbar = () => {
+  const router = useRouter()
   const isSignedIn = useIsSignedIn()
 
   return (
@@ -23,16 +25,15 @@ const Navbar = () => {
         </a>
       </Link>
       <FlowbiteNavbar.Collapse>
-        <FlowbiteNavbar.Link href="#" active={true}>
-          Home
-        </FlowbiteNavbar.Link>
-        <FlowbiteNavbar.Link href="#">About</FlowbiteNavbar.Link>
-        <FlowbiteNavbar.Link href="#">Services</FlowbiteNavbar.Link>
-        <FlowbiteNavbar.Link href="#">Pricing</FlowbiteNavbar.Link>
-        <FlowbiteNavbar.Link href="#">Contact</FlowbiteNavbar.Link>
+        <Link href={Routes.Home()}>
+          <a className={`${router.pathname == "/" && "text-blue-700"}`}>Home</a>
+        </Link>
+        <Link href={Routes.BooksPage()}>
+          <a className={`${router.pathname == "/books" && "text-blue-700"}`}>Books</a>
+        </Link>
       </FlowbiteNavbar.Collapse>
       <div className="flex md:order-2 gap-4">
-        { isSignedIn? (
+        {isSignedIn ? (
           <Suspense fallback={<Avatar rounded />}>
             <NavbarIcon />
           </Suspense>
