@@ -7,9 +7,10 @@ type Props = {
   book: Book
   chapter: Chapter
   section: Section
+  stage: string
 }
 
-const SectionContent: FC<Props> = ({ book, chapter, section }) => {
+const SectionContent: FC<Props> = ({ book, chapter, section, stage }) => {
   const { remainingHeight } = useCalculateHeight()
 
   return (
@@ -18,7 +19,9 @@ const SectionContent: FC<Props> = ({ book, chapter, section }) => {
         <Breadcrumb items={["books", book.title, chapter.headline]} />
         <div className="format">
           <h2 className="flex gap-4">
-            <span className="bg-blue-800 text-white px-2 rounded whitespace-nowrap h-fit">2-1</span>
+            <span className="bg-blue-800 text-white px-2 rounded whitespace-nowrap h-fit">
+              {stage}
+            </span>
             <span>{section.title}</span>
           </h2>
           <div className="sentence">{section.content}</div>
