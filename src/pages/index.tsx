@@ -1,140 +1,116 @@
-import { Suspense } from "react"
-import Image from "next/image"
+import { BlitzPage } from "@blitzjs/auth"
+import { Routes } from "@blitzjs/next"
+import { Book } from "@prisma/client"
+import { Button } from "flowbite-react"
 import Link from "next/link"
+import { gSSP } from "src/blitz-server"
+import BookCard from "src/books/components/BookCard"
+import getBooks from "src/books/queries/getBooks"
+import Footer from "src/core/components/Footer"
 import Layout from "src/core/layouts/Layout"
-import { useCurrentUser } from "src/users/hooks/useCurrentUser"
-import logout from "src/auth/mutations/logout"
-import logo from "public/logo.png"
-import { useMutation } from "@blitzjs/rpc"
-import { Routes, BlitzPage } from "@blitzjs/next"
+import { ImBook } from "react-icons/im"
+import { BsLightbulb } from "react-icons/bs"
+import { MdEmojiPeople } from "react-icons/md"
 
-/*
- * This file is just for a pleasant getting started page for your new app.
- * You can delete everything in here and start from scratch if you like.
- */
-
-const UserInfo = () => {
-  const currentUser = useCurrentUser()
-  const [logoutMutation] = useMutation(logout)
-
-  if (currentUser) {
-    return (
-      <>
-        <button
-          className="button small"
-          onClick={async () => {
-            await logoutMutation()
-          }}
-        >
-          Logout
-        </button>
-        <div>
-          User id: <code>{currentUser.id}</code>
-          <br />
-          User role: <code>{currentUser.role}</code>
-        </div>
-      </>
-    )
-  } else {
-    return (
-      <>
-        <Link href={Routes.SignupPage()}>
-          <a className="button small">
-            <strong>Sign Up</strong>
-          </a>
-        </Link>
-        <Link href={Routes.LoginPage()}>
-          <a className="button small">
-            <strong>Login</strong>
-          </a>
-        </Link>
-      </>
-    )
-  }
+type Props = {
+  books: Book[]
 }
 
-const Home: BlitzPage = () => {
+export const getServerSideProps = gSSP(async ({ ctx }) => {
+  const { books } = await getBooks({ take: 3 }, ctx)
+  return { props: { books } }
+})
+
+const Home: BlitzPage<Props> = ({ books }) => {
   return (
     <Layout title="Home">
-      <div className="container">
-        <main>
-          <div className="logo">
-            <Image src={`${logo.src}`} alt="blitzjs" width="256px" height="118px" layout="fixed" />
-          </div>
-          <p>
-            <strong>Congrats!</strong> Your app is ready, including user sign-up and log-in.
-          </p>
-          <div className="buttons" style={{ marginTop: "1rem", marginBottom: "1rem" }}>
-            <Suspense fallback="Loading...">
-              <UserInfo />
-            </Suspense>
-          </div>
-          <p>
-            <strong>
-              To add a new model to your app, <br />
-              run the following in your terminal:
-            </strong>
-          </p>
-          <pre>
-            <code>blitz generate all project name:string</code>
-          </pre>
-          <div style={{ marginBottom: "1rem" }}>(And select Yes to run prisma migrate)</div>
-          <div>
-            <p>
-              Then <strong>restart the server</strong>
+      <section className="relative bg-[url(https://pds.exblog.jp/pds/1/202102/05/63/f0347663_14193922.jpg)] bg-cover bg-center bg-no-repeat">
+        <div className="absolute inset-0 bg-white/75 sm:bg-transparent sm:bg-gradient-to-r sm:from-white/95 sm:to-white/25"></div>
+
+        <div className="relative mx-auto max-w-screen-xl px-4 py-32 sm:px-6 lg:flex lg:h-screen lg:items-center lg:px-8">
+          <div className="max-w-xl text-center sm:text-left">
+            <h1 className="text-3xl font-extrabold sm:text-5xl">
+              Learn from history,
+              <strong className="block font-extrabold text-blue-700">Create Future.</strong>
+            </h1>
+
+            <p className="mt-4 max-w-lg sm:text-xl sm:leading-relaxed">
+              WeWrite is an application which provide high quality article about histroy. Check many
+              articles!
             </p>
-            <pre>
-              <code>Ctrl + c</code>
-            </pre>
-            <pre>
-              <code>blitz dev</code>
-            </pre>
-            <p>
-              and go to{" "}
-              <Link href="/projects">
-                <a>/projects</a>
+
+            <div className="mt-8 flex flex-wrap gap-4 text-center">
+              <Link href={Routes.BooksPage()}>
+                <Button>Find articles</Button>
               </Link>
-            </p>
-          </div>
-          <div className="buttons" style={{ marginTop: "5rem" }}>
-            <a
-              className="button"
-              href="https://blitzjs.com/docs/getting-started?utm_source=blitz-new&utm_medium=app-template&utm_campaign=blitz-new"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Documentation
-            </a>
-            <a
-              className="button-outline"
-              href="https://github.com/blitz-js/blitz"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Github Repo
-            </a>
-            <a
-              className="button-outline"
-              href="https://discord.blitzjs.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Discord Community
-            </a>
-          </div>
-        </main>
 
-        <footer>
-          <a
-            href="https://blitzjs.com?utm_source=blitz-new&utm_medium=app-template&utm_campaign=blitz-new"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Powered by Blitz.js
-          </a>
-        </footer>
+              <Link href={Routes.LoginPage()}>
+                <Button color="light">Login</Button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
 
-      </div>
+      <section className="container mx-auto py-20 flex flex-col gap-8">
+        <h1 className="mx-auto text-4xl font-bold text-blue-700">Popular Articles</h1>
+        <div className="max-w-5xl grid md:grid-cols-3 gap-8 mx-auto py-10 px-4">
+          {books.map((book, bookIndex) => (
+            <BookCard key={bookIndex} book={book} />
+          ))}
+        </div>
+      </section>
+
+      <section className="bg-gray-100">
+        <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
+          <div className="items-end justify-between sm:flex">
+            <div className="max-w-xl">
+              <h2 className="text-4xl font-bold tracking-tight">Our Features</h2>
+            </div>
+          </div>
+
+          <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <blockquote className="flex h-full flex-col justify-between bg-white p-12">
+              <div>
+                <div className="mt-4">
+                  <h3 className="text-xl font-bold text-blue-700 sm:text-2xl">
+                    <ImBook className="text-3xl" />
+                    Interesting Articles
+                  </h3>
+
+                  <p className="mt-4 text-gray-600">WeWrite has a lot of articles!</p>
+                </div>
+              </div>
+            </blockquote>
+            <blockquote className="flex h-full flex-col justify-between bg-white p-12">
+              <div>
+                <div className="mt-4">
+                  <h3 className="text-xl font-bold text-blue-700 sm:text-2xl">
+                    <BsLightbulb className="text-3xl" />
+                    Write knowledge
+                  </h3>
+
+                  <p className="mt-4 text-gray-600">Share your knowledge!</p>
+                </div>
+              </div>
+            </blockquote>
+            <blockquote className="flex h-full flex-col justify-between bg-white p-12">
+              <div>
+                <div className="mt-4">
+                  <h3 className="text-xl font-bold text-blue-700 sm:text-2xl">
+                    <MdEmojiPeople className="text-3xl" />
+                    Enjoy everything
+                  </h3>
+
+                  <p className="mt-4 text-gray-600">{"Let's start WeWrite!"}</p>
+                </div>
+              </div>
+            </blockquote>
+          </div>
+        </div>
+      </section>
+
+      <Footer />
     </Layout>
   )
 }

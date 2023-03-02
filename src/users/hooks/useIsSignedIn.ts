@@ -6,9 +6,10 @@ export const useIsSignedIn = () => {
   const session = useSession({ suspense: false })
 
   useEffect(() => {
-    setIsSignedIn(!!session.userId)
-  }, [session])
-
+    if (!!session.userId !== isSignedIn) {
+      setIsSignedIn(!!session.userId)
+    }
+  }, [session.userId, isSignedIn])
+  
   return isSignedIn
 }
-

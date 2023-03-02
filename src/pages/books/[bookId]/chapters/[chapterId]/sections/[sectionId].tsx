@@ -12,10 +12,15 @@ export const getServerSideProps = gSSP(async ({ query, ctx }) => {
   const chapter = await getChapter({ id: section.chapterId }, ctx)
   const book = await getBook({ id: chapter.bookId }, ctx)
 
-  return { props: { book, chapter, section } }
+  const chapterIndex = book.chapters.findIndex((e) => e.id == chapter.id)
+  const sectionIndex = chapter.sections.findIndex((e) => e.id == section.id)
+
+  const stage = `${chapterIndex + 1}-${sectionIndex + 1}`
+
+  return { props: { book, chapter, section, stage } }
 })
 
-const ShowSectionPage = ({ book, chapter, section }) => {
+const ShowSectionPage = ({ book, chapter, section, stage }) => {
   return (
     <Layout title={`${section.title} | ${book.title}`}>
       <div className="md:grid md:grid-cols-12 h-full ">
@@ -23,7 +28,7 @@ const ShowSectionPage = ({ book, chapter, section }) => {
           <SectionSidebar book={book} />
         </div>
         <div className="md:col-span-9">
-          <SectionContent book={book} chapter={chapter} section={section} />
+          <SectionContent book={book} chapter={chapter} section={section} stage={stage} />
         </div>
       </div>
     </Layout>
