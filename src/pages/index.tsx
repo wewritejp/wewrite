@@ -1,13 +1,16 @@
 import { BlitzPage } from "@blitzjs/auth"
 import { Routes } from "@blitzjs/next"
 import { Book } from "@prisma/client"
-import { Button, Card } from "flowbite-react"
+import { Button } from "flowbite-react"
 import Link from "next/link"
 import { gSSP } from "src/blitz-server"
 import BookCard from "src/books/components/BookCard"
 import getBooks from "src/books/queries/getBooks"
 import Footer from "src/core/components/Footer"
 import Layout from "src/core/layouts/Layout"
+import { ImBook } from "react-icons/im"
+import { BsLightbulb } from "react-icons/bs"
+import { MdEmojiPeople } from "react-icons/md"
 
 type Props = {
   books: Book[]
@@ -71,6 +74,7 @@ const Home: BlitzPage<Props> = ({ books }) => {
               <div>
                 <div className="mt-4">
                   <h3 className="text-xl font-bold text-blue-700 sm:text-2xl">
+                    <ImBook className="text-3xl" />
                     Interesting Articles
                   </h3>
 
@@ -81,7 +85,10 @@ const Home: BlitzPage<Props> = ({ books }) => {
             <blockquote className="flex h-full flex-col justify-between bg-white p-12">
               <div>
                 <div className="mt-4">
-                  <h3 className="text-xl font-bold text-blue-700 sm:text-2xl">Write knowledge</h3>
+                  <h3 className="text-xl font-bold text-blue-700 sm:text-2xl">
+                    <BsLightbulb className="text-3xl" />
+                    Write knowledge
+                  </h3>
 
                   <p className="mt-4 text-gray-600">Share your knowledge!</p>
                 </div>
@@ -90,7 +97,10 @@ const Home: BlitzPage<Props> = ({ books }) => {
             <blockquote className="flex h-full flex-col justify-between bg-white p-12">
               <div>
                 <div className="mt-4">
-                  <h3 className="text-xl font-bold text-blue-700 sm:text-2xl">Enjoy everything</h3>
+                  <h3 className="text-xl font-bold text-blue-700 sm:text-2xl">
+                    <MdEmojiPeople className="text-3xl" />
+                    Enjoy everything
+                  </h3>
 
                   <p className="mt-4 text-gray-600">{"Let's start WeWrite!"}</p>
                 </div>
