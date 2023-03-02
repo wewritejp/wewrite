@@ -14,13 +14,16 @@ export const content = z.string().min(10).max(9999)
 
 export const note = z.string().min(10).max(9999)
 
+export const imageUrl = z.string().url()
+
 export const CreateBook = z.object({
   title,
   body,
   price,
   purpose,
   content,
-  note
+  note,
+  imageUrl
 })
 
 export const UpdateBook = z.object({
@@ -31,4 +34,5 @@ export const UpdateBook = z.object({
   purpose,
   content,
   note,
+  imageUrl
 })

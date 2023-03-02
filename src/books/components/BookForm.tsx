@@ -10,6 +10,12 @@ export function BookForm<S extends z.ZodType<any, any>>(props: FormProps<S>) {
       <LabeledTextField name="title" label="Title" placeholder="Title" className="w-full" />
       <LabeledTextarea name="body" label="Body" placeholder="Body" className="w-full" rows={10} />
       <LabeledTextField
+        name="imageUrl"
+        label="Image URL"
+        placeholder="Image URL"
+        className="w-full"
+      />
+      <LabeledTextField
         name="price"
         label="Price($100-$9,999)"
         placeholder="Price"
@@ -27,13 +33,7 @@ export function BookForm<S extends z.ZodType<any, any>>(props: FormProps<S>) {
         className="w-full"
         rows={10}
       />
-      <LabeledTextarea
-        name="note"
-        label="Note"
-        placeholder="Note"
-        className="w-full"
-        rows={5}
-      />
+      <LabeledTextarea name="note" label="Note" placeholder="Note" className="w-full" rows={5} />
     </Form>
   )
 }
