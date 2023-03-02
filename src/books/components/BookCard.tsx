@@ -6,7 +6,7 @@ const BookCard = ({ book }) => {
   return (
     <Link href={Routes.ShowBookPage({ bookId: book.id })}>
       <a>
-        <Card imgSrc="https://i.ytimg.com/vi/-UjD_YrVhUM/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLB-Jl1S1fLGAmlaj_7Jg8oE7dXCmw">
+        <Card imgSrc={book.imageUrl}>
           <div className="h-36 flex flex-col gap-4">
             <h5 className="font-bold tracking-tight text-gray-900 dark:text-white">{book.title}</h5>
             <div className="mr-auto">
