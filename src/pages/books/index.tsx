@@ -3,6 +3,7 @@ import { Book } from "@prisma/client"
 import { gSSP } from "src/blitz-server"
 import BookCard from "src/books/components/BookCard"
 import getBooks from "src/books/queries/getBooks"
+import Footer from "src/core/components/Footer"
 import Layout from "src/core/layouts/Layout"
 
 type Props = {
@@ -25,6 +26,7 @@ const BooksPage: BlitzPage<Props> = ({ books }) => {
           ))}
         </div>
       </div>
+      <Footer />
     </Layout>
   )
 }
