@@ -6,9 +6,6 @@ const { withBlitz } = require("@blitzjs/next")
  **/
 const config = {
   reactStrictMode: true,
-  images: {
-    domains: ["i.ytimg.com"]
-  },
   experimental: {
     scrollRestoration: true,
   },
