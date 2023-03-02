@@ -1,11 +1,13 @@
 databases:
   - name: wewrite-db
     plan: free
+    region: singapore
 
 services:
   - type: web
     name: wewrite
     env: node
+    region: singapore
     plan: free
     buildCommand: yarn --frozen-lockfile --prod=false && blitz build && blitz prisma migrate deploy
     startCommand: blitz start
