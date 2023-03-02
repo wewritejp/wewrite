@@ -66,24 +66,25 @@ model Token {
 // }
 
 model Book {
-  id        String   @id @default(cuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id        String    @id @default(cuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
   title     String
   body      String
-  price     Int      @default(0)
+  price     Int       @default(0)
   purpose   String
   content   String
   note      String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String
   chapters  Chapter[]
+  imageUrl  String   @default("")
 }
 
 model Chapter {
-  id        String   @id @default(cuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id        String    @id @default(cuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
   headline  String
   book      Book      @relation(fields: [bookId], references: [id], onDelete: Cascade)
   bookId    String
