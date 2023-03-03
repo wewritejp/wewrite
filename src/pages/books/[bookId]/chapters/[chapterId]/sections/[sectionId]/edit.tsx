@@ -19,7 +19,9 @@ export const getServerSideProps = gSSP(async ({ query, ctx }) => {
   const id = query.sectionId as string
   const section = await getSection({ id }, ctx)
 
-  return { props: { section } }
+  const isMyBook = section.chapter.book.userId == ctx.session.userId
+
+  return { props: { section }, notFound: !isMyBook }
 })
 
 const EditSectionPage: BlitzPage<Props> = ({ section }) => {
