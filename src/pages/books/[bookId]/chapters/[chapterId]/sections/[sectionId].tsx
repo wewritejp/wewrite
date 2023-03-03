@@ -15,9 +15,7 @@ export const getServerSideProps = gSSP(async ({ query, ctx }) => {
 
   const stage = setStageNumber(book, chapter, section)
 
-  const isMyBook = book.userId == ctx.session.userId
-
-  return { props: { book, chapter, section, stage }, notFound: !isMyBook }
+  return { props: { book, chapter, section, stage } }
 })
 
 const ShowSectionPage = ({ book, chapter, section, stage }) => {
