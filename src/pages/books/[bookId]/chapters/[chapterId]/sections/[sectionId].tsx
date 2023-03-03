@@ -1,5 +1,6 @@
 import { gSSP } from "src/blitz-server"
 import getBook from "src/books/queries/getBook"
+import { setStageNumber } from "src/books/utils/setStageNumber"
 import getChapter from "src/chapters/queries/getChapter"
 import Layout from "src/core/layouts/Layout"
 import SectionContent from "src/sections/components/SectionContent"
@@ -12,12 +13,11 @@ export const getServerSideProps = gSSP(async ({ query, ctx }) => {
   const chapter = await getChapter({ id: section.chapterId }, ctx)
   const book = await getBook({ id: chapter.bookId }, ctx)
 
-  const chapterIndex = book.chapters.findIndex((e) => e.id == chapter.id)
-  const sectionIndex = chapter.sections.findIndex((e) => e.id == section.id)
+  const stage = setStageNumber(book, chapter, section)
 
-  const stage = `${chapterIndex + 1}-${sectionIndex + 1}`
+  const isMyBook = book.userId == ctx.session.userId
 
-  return { props: { book, chapter, section, stage } }
+  return { props: { book, chapter, section, stage }, notFound: !isMyBook }
 })
 
 const ShowSectionPage = ({ book, chapter, section, stage }) => {
