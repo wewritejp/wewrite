@@ -27,14 +27,14 @@ const BookIntroduction: FC<Props> = ({ book }) => {
             <h1 className=" text-2xl font-bold">{book.title}</h1>
           </div>
           <div className="flex">
-            <Rating>
+            {/* <Rating>
               <Rating.Star />
               <Rating.Star />
               <Rating.Star />
               <Rating.Star />
               <Rating.Star filled={false} />
               <p className="ml-2 text-sm font-medium text-gray-200">4.95 (30)</p>
-            </Rating>
+            </Rating> */}
             <Avatar rounded className="ml-auto text-sm" size={"sm"}>
               {book.user.name}
             </Avatar>
@@ -46,7 +46,7 @@ const BookIntroduction: FC<Props> = ({ book }) => {
             <h2 className="md:col-span-7">{book.body}</h2>
           </div>
           <div className="flex">
-            <Tags items={["hogehoge", "foobar"]} />
+            {/* <Tags items={["hogehoge", "foobar"]} /> */}
           </div>
           <div className="flex">
             <div className="mt-auto flex gap-1">
