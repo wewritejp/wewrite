@@ -18,7 +18,9 @@ type Props = {
 export const getServerSideProps = gSSP(async ({ query, ctx }) => {
   const id = query.chapterId! as string
   const chapter = await getChapter({ id }, ctx)
-  return { props: { chapter } }
+  const isMyBook = chapter.book.userId == ctx.session.userId
+
+  return { props: { chapter }, notFound: !isMyBook }
 })
 
 const EditChapterPage: BlitzPage<Props> = ({ chapter }) => {
