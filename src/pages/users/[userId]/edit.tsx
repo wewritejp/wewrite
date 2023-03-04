@@ -13,7 +13,7 @@ import { UserForm, FORM_ERROR } from "src/users/components/UserForm";
 
 export const EditUser = () => {
   const router = useRouter();
-  const userId = useParam("userId", "number");
+  const userId = useParam("userId", "string");
   const [user, { setQueryData }] = useQuery(
     getUser,
     { id: userId },
@@ -69,11 +69,11 @@ const EditUserPage = () => {
         <EditUser />
       </Suspense>
 
-      <p>
+      {/* <p>
         <Link href={Routes.UsersPage()}>
           <a>Users</a>
         </Link>
-      </p>
+      </p> */}
     </div>
   );
 };
