@@ -1,12 +1,14 @@
 import { BlitzPage } from "@blitzjs/next"
 import { useMutation } from "@blitzjs/rpc"
 import { User } from "@prisma/client"
+import { useRouter } from "next/router"
 import { gSSP } from "src/blitz-server"
 import Footer from "src/core/components/Footer"
 import Layout from "src/core/layouts/Layout"
 import { FORM_ERROR, UserForm } from "src/users/components/UserForm"
 import updateUser from "src/users/mutations/updateUser"
 import getUser from "src/users/queries/getUser"
+import { UpdateUser } from "src/users/validations"
 
 type Props = {
   user: User
@@ -21,7 +23,9 @@ export const getServerSideProps = gSSP(async ({ query, ctx }) => {
 })
 
 const EditUserPage: BlitzPage<Props> = ({ user }) => {
+  const router = useRouter()
   const [updateUserMutation] = useMutation(updateUser)
+
   return (
     <Layout title={user.name}>
       <div className="max-w-2xl mx-auto flex flex-col gap-4 p-4">
@@ -29,11 +33,12 @@ const EditUserPage: BlitzPage<Props> = ({ user }) => {
 
         <UserForm
           submitText="Update Profile"
-          // schema={UpdateUser}
+          schema={UpdateUser}
           initialValues={user}
           onSubmit={async (values) => {
             try {
               await updateUserMutation({ ...values })
+              await router.back()
             } catch (error: any) {
               console.log(error)
               return {
