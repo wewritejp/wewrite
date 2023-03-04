@@ -1,6 +1,6 @@
 import { Footer as FlowbiteFooter } from "flowbite-react"
 import Link from "next/link"
-import { BsFacebook, BsInstagram, BsTwitter, BsGithub, BsDribbble } from "react-icons/bs"
+import { BsTwitter, BsGithub } from "react-icons/bs"
 
 const Footer = () => {
   return (
@@ -15,26 +15,19 @@ const Footer = () => {
               name="WeWrite"
             />
           </div>
-          <div className="grid grid-cols-2 gap-8 sm:mt-4 sm:grid-cols-3 sm:gap-6">
+          <div className="grid grid-cols-2 gap-8 sm:mt-4 sm:gap-6">
             <div>
-              <FlowbiteFooter.Title title="about" />
+              <FlowbiteFooter.Title title="Be a Writer" />
               <FlowbiteFooter.LinkGroup col={true}>
-                <FlowbiteFooter.Link href="#">Flowbite</FlowbiteFooter.Link>
-                <FlowbiteFooter.Link href="#">Tailwind CSS</FlowbiteFooter.Link>
+                <FlowbiteFooter.Link href={`/books/new`}>Create New Book</FlowbiteFooter.Link>
               </FlowbiteFooter.LinkGroup>
             </div>
             <div>
               <FlowbiteFooter.Title title="Follow us" />
               <FlowbiteFooter.LinkGroup col={true}>
-                <FlowbiteFooter.Link href="#">Github</FlowbiteFooter.Link>
-                <FlowbiteFooter.Link href="#">Discord</FlowbiteFooter.Link>
-              </FlowbiteFooter.LinkGroup>
-            </div>
-            <div>
-              <FlowbiteFooter.Title title="Legal" />
-              <FlowbiteFooter.LinkGroup col={true}>
-                <FlowbiteFooter.Link href="#">Privacy Policy</FlowbiteFooter.Link>
-                <FlowbiteFooter.Link href="#">Terms & Conditions</FlowbiteFooter.Link>
+                <FlowbiteFooter.Link href="https://github.com/wewritejp/wewrite">
+                  Github
+                </FlowbiteFooter.Link>
               </FlowbiteFooter.LinkGroup>
             </div>
           </div>
