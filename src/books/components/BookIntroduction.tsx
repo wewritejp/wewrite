@@ -1,5 +1,4 @@
 import { Avatar, Button, Rating } from "flowbite-react"
-import Image from "next/image"
 import dateFormat from "dateformat"
 import { MdUpdate } from "react-icons/md"
 import Tags from "src/core/components/Tags"
@@ -36,7 +35,7 @@ const BookIntroduction: FC<Props> = ({ book }) => {
               <Rating.Star filled={false} />
               <p className="ml-2 text-sm font-medium text-gray-200">4.95 (30)</p>
             </Rating> */}
-            <Avatar rounded className="ml-auto text-sm" size={"sm"}>
+            <Avatar rounded className="ml-auto text-sm" size={"sm"} img={book.user.imageUrl || ""}>
               {book.user.name}
             </Avatar>
           </div>

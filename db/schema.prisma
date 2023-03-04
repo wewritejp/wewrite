@@ -20,6 +20,8 @@ model User {
   email          String   @unique
   hashedPassword String?
   role           String   @default("USER")
+  introduction   String?  
+  imageUrl       String?
   books          Book[]
 
   tokens   Token[]
