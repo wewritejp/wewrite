@@ -10,7 +10,7 @@ const BookCard = ({ book }) => {
           <div className="h-36 flex flex-col gap-4">
             <h5 className="font-bold tracking-tight text-gray-900 dark:text-white">{book.title}</h5>
             <div className="mr-auto">
-              <Avatar rounded size={"sm"}>
+              <Avatar rounded size={"sm"} img={book.user.imageUrl}>
                 <p className="text-sm text-gray-700">{book.user.name}</p>
               </Avatar>
             </div>

@@ -8,13 +8,13 @@ type Props = {
 
 const BookAuthorProfile: FC<Props> = ({ user }) => {
   return (
-    <div className="flex gap-4 p-2">
-      <div className="flex flex-col gap-2">
-        <Avatar size={"xl"} rounded />
+    <div className="md:grid grid-cols-3 gap-4 p-2">
+      <div className="flex flex-col">
+        <Avatar size={"xl"} rounded img={user.imageUrl || ""} />
         <h4 className="mx-auto">{user.name}</h4>
       </div>
-      <p className="my-auto">
-        現在は教育業界でサーバーサイド・フロントエンドエンジニアとして働きながら、休日は個人サービスの開発を楽しんでいます。RubyとVimがとっても好きです。Twitterアカウント：@rails_java_like
+      <p className="col-span-2 py-4 sentence">
+        { user.introduction ? user.introduction: 'There is no introduction.'}
       </p>
     </div>
   )
