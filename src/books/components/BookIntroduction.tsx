@@ -10,6 +10,9 @@ import { Routes } from "@blitzjs/next"
 import { Book, User } from "@prisma/client"
 import { FC, useState } from "react"
 import BookSubscribeButton from "./BookSubscribeButton"
+import updateBook from "../mutations/updateBook"
+import { useMutation } from "@blitzjs/rpc"
+import { FORM_ERROR } from "src/core/components/Form"
 
 type Props = {
   book: Book & { user: User }
@@ -17,7 +20,20 @@ type Props = {
 
 const BookIntroduction: FC<Props> = ({ book }) => {
   const { isMyBook } = useMyBook(book)
-  const [checked, setChecked] = useState(false)
+  const [checked, setChecked] = useState(book.isPublished)
+  const [updateBookMutation] = useMutation(updateBook)
+
+  const changePublishingStatus = async () => {
+    try {
+      await updateBookMutation({...book, isPublished: !checked})
+      setChecked(!checked)
+    } catch (error: any) {
+      console.error(error)
+      return {
+        [FORM_ERROR]: error.toString(),
+      }
+    }
+  }
 
   return (
     <section className="min-h-96 bg-blue-800">
@@ -68,7 +84,12 @@ const BookIntroduction: FC<Props> = ({ book }) => {
                     </Button>
                   </Link>
                   <label className="relative inline-flex items-center mb-5 cursor-pointer mt-auto">
-                    <input type="checkbox" value="" className="sr-only peer" />
+                    <input
+                      type="checkbox"
+                      className="sr-only peer"
+                      checked={checked}
+                      onChange={changePublishingStatus}
+                    />
                     <div className="w-11 h-6 bg-gray-400 peer-focus:outline-none peer-focus:ring-0 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-500"></div>
                     <span className="ml-3 text-sm font-medium">Publish?</span>
                   </label>
