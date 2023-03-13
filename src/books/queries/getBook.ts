@@ -8,8 +8,8 @@ const GetBook = z.object({
   id: z.string().optional().refine(Boolean, "Required"),
 })
 
-export default resolver.pipe(resolver.zod(GetBook), async ({ id }) => {
-  // TODO: in multi-tenant app, you must add validation to ensure correct tenant
+export default resolver.pipe(resolver.zod(GetBook), async ({ id }, ctx) => {
+  const currentUserId = ctx.session.userId
   const book = await db.book.findFirst({
     where: { id },
     include: {
@@ -20,8 +20,9 @@ export default resolver.pipe(resolver.zod(GetBook), async ({ id }) => {
       },
     },
   })
+  const canVisibleBook = !!book && (book.userId == currentUserId || book.isPublished)
 
-  if (!book) throw new NotFoundError()
+  if (!canVisibleBook) throw new NotFoundError()
 
   return book
 })
