@@ -81,7 +81,7 @@ model Book {
   userId      String
   chapters    Chapter[]
   imageUrl    String    @default("")
-  isPublished Boolean   @default(true)
+  isPublished Boolean   @default(false)
 }
 
 model Chapter {
