@@ -20,7 +20,7 @@ model User {
   email          String   @unique
   hashedPassword String?
   role           String   @default("USER")
-  introduction   String?  
+  introduction   String?
   imageUrl       String?
   books          Book[]
 
@@ -68,19 +68,20 @@ model Token {
 // }
 
 model Book {
-  id        String    @id @default(cuid())
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  title     String
-  body      String
-  price     Int       @default(0)
-  purpose   String
-  content   String
-  note      String
-  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId    String
-  chapters  Chapter[]
-  imageUrl  String   @default("")
+  id          String    @id @default(cuid())
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  title       String
+  body        String
+  price       Int       @default(0)
+  purpose     String
+  content     String
+  note        String
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      String
+  chapters    Chapter[]
+  imageUrl    String    @default("")
+  isPublished Boolean   @default(false)
 }
 
 model Chapter {
