@@ -17,7 +17,7 @@ type Props = {
 }
 
 export const getServerSideProps = gSSP(async ({ ctx }) => {
-  const { books } = await getBooks({ take: 3 }, ctx)
+  const { books } = await getBooks({ take: 3, where: { isPublished: true } }, ctx)
   return { props: { books } }
 })
 
