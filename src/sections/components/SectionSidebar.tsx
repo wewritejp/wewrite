@@ -23,7 +23,7 @@ const SectionSidebar: BlitzPage<Props> = ({ book }) => {
             <h4 className="hover:cursor-pointer">{book.title}</h4>
           </Link>
           <div className="flex gap-2">
-            <Avatar size={"sm"} className="text-gray-800" rounded>
+            <Avatar size={"sm"} className="text-gray-800" img={book.user.imageUrl || ""} rounded>
               {book.user.name}
             </Avatar>
           </div>
