@@ -1,9 +1,7 @@
 import { useMutation } from "@blitzjs/rpc"
-import { Dropdown } from "flowbite-react"
+import { Avatar, Dropdown } from "flowbite-react"
 import { useCurrentUser } from "src/users/hooks/useCurrentUser"
 import logout from "src/auth/mutations/logout"
-// import Gravatar from "react-gravatar"
-import Image from "next/image"
 import { useRouter } from "next/router"
 import { Routes } from "@blitzjs/next"
 
@@ -22,8 +20,7 @@ const NavbarIcon = () => {
         <Dropdown
           label={
             <div className="h-10 w-10">
-              {/* <Gravatar email={currentUser?.email} className="rounded-full" /> */}
-              <img src={currentUser.imageUrl || ""} width={100} height={100} className="rounded-full border" />
+              <Avatar img={currentUser.imageUrl || ""}  className="rounded-full border" rounded/>
             </div>
           }
           arrowIcon={false}
