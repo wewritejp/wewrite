@@ -16,6 +16,8 @@ export const note = z.string().min(10).max(9999)
 
 export const imageUrl = z.string().url()
 
+export const isPublished = z.boolean()
+
 export const CreateBook = z.object({
   title,
   body,
@@ -34,5 +36,6 @@ export const UpdateBook = z.object({
   purpose,
   content,
   note,
-  imageUrl
+  imageUrl,
+  isPublished
 })
