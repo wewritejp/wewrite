@@ -1,4 +1,4 @@
-import { Avatar, Button, Rating } from "flowbite-react"
+import { Avatar, Button, Rating, ToggleSwitch } from "flowbite-react"
 import dateFormat from "dateformat"
 import { MdUpdate } from "react-icons/md"
 import Tags from "src/core/components/Tags"
@@ -10,6 +10,7 @@ import { Routes } from "@blitzjs/next"
 import { Book, User } from "@prisma/client"
 import { FC } from "react"
 import BookSubscribeButton from "./BookSubscribeButton"
+import { useIsPublished } from "../hooks/useIsPublished"
 
 type Props = {
   book: Book & { user: User }
@@ -17,6 +18,7 @@ type Props = {
 
 const BookIntroduction: FC<Props> = ({ book }) => {
   const { isMyBook } = useMyBook(book)
+  const { toggled, updatePublishingStatus } = useIsPublished(book)
 
   return (
     <section className="min-h-96 bg-blue-800">
@@ -57,15 +59,28 @@ const BookIntroduction: FC<Props> = ({ book }) => {
               <MdUpdate />
               <p className="text-xs">{dateFormat(book.updatedAt, "fullDate")}</p>
             </div>
-            <div className="flex ml-auto gap-4">
-              <BookSubscribeButton book={book} />
-              {isMyBook && (
-                <Link href={Routes.EditBookPage({ bookId: book.id })}>
-                  <Button color="warning">
-                    <BsPencil className="w-4 h-4 mr-1" />
-                    Edit
-                  </Button>
-                </Link>
+            <div className="ml-auto">
+              {isMyBook ? (
+                <div className="flex gap-4">
+                  <Link href={Routes.EditBookPage({ bookId: book.id })}>
+                    <Button color="warning">
+                      <BsPencil className="w-4 h-4 mr-1" />
+                      Edit
+                    </Button>
+                  </Link>
+                  <label className="relative inline-flex items-center mb-5 cursor-pointer mt-auto">
+                    <input
+                      type="checkbox"
+                      className="sr-only peer"
+                      checked={toggled}
+                      onChange={updatePublishingStatus}
+                    />
+                    <div className="w-11 h-6 bg-gray-400 peer-focus:outline-none peer-focus:ring-0 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-500"></div>
+                    <span className="ml-3 text-sm font-medium">Publish?</span>
+                  </label>
+                </div>
+              ) : (
+                <BookSubscribeButton book={book} />
               )}
             </div>
           </div>
