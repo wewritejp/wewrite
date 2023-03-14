@@ -1,43 +1,12 @@
-import db, { Book, User } from "db"
+import db from "db"
 import getBooks from "../queries/getBooks"
-import { vi } from "vitest"
+import { dummyBookA } from "./factories/Book"
+import { dummyUser } from "src/users/test/User"
+import { mockCtx } from "src/core/test/mock"
 
 afterEach(async () => {
   await db.$reset()
 })
-
-const mockCtx: any = {
-  session: {
-    $create: vi.fn(),
-  },
-}
-
-const dummyUser: User = {
-  id: "higakijin",
-  name: "higakijin",
-  email: "higakijin@example.com",
-  hashedPassword: "higakijinPassword",
-  role: "User",
-  introduction: "my name is higakijin",
-  imageUrl: "https://higakijin@example.png",
-  createdAt: new Date("2023-3-14"),
-  updatedAt: new Date("2023-3-14"),
-}
-
-const dummyBookA: Book = {
-  id: "dummyBookA",
-  title: "dummyBookA title",
-  body: "dummyBookA body",
-  price: 100,
-  purpose: "dummyBookA purpose",
-  content: "dummyBookA content",
-  note: "dummyBookA note",
-  imageUrl: "https://dummyBookA.example.png",
-  isPublished: true,
-  createdAt: new Date("2023-3-14"),
-  updatedAt: new Date("2023-3-14"),
-  userId: "higakijin",
-}
 
 describe("Test getBooks", () => {
   describe("when books are empty", () => {
@@ -61,7 +30,6 @@ describe("Test getBooks", () => {
     })
 
     it('does not return draft books', async () => {
-
     })
   })
 })
