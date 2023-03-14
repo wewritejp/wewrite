@@ -23,11 +23,14 @@ jobs:
           --health-retries 5
     steps:
       - uses: actions/checkout@v3
+      - name: output environment variable for test db
+        run: echo "DATABASE_URL=$DATABASE_URL" >> $GITHUB_ENV
+        env:
+          DATABASE_URL: postgresql://root:secret@localhost:5431/mydb-test
       - name: yarn install
         run: yarn install
       - name: yarn build
         run: yarn build && yarn blitz prisma migrate dev
       - name: run tests
         run: yarn run test
-        env:
-          DATABASE_URL: postgresql://root:secret@localhost:5431/mydb-test
+
