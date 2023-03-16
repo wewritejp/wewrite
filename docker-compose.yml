@@ -1,0 +1,13 @@
+# 以下はテスト実行用のデータベース。
+# 開発環境用のデータベースはlocalhost:5432で起動すること
+version: '3.9'
+services:
+  postgres-test:
+    image: postgres:12-alpine
+    container_name: postgres-test
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=secret
+      - POSTGRES_DB=mydb-test
+    ports:
+      - 5431:5432

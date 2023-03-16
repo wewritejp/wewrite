@@ -1,0 +1,36 @@
+on:
+  pull_request:
+    branches: ["*"]
+  push:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_USER: root
+          POSTGRES_PASSWORD: secret
+          POSTGRES_DB: mydb-test
+        ports:
+          - 5431:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+      - uses: actions/checkout@v3
+      - name: output environment variable for test db
+        run: echo "DATABASE_URL=$DATABASE_URL" >> $GITHUB_ENV
+        env:
+          DATABASE_URL: postgresql://root:secret@localhost:5431/mydb-test
+      - name: yarn install
+        run: yarn install
+      - name: yarn build
+        run: yarn build && yarn blitz prisma migrate dev
+      - name: run tests
+        run: yarn run test
+
