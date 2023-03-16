@@ -21,7 +21,7 @@ export const getServerSideProps = gSSP(async ({ ctx }) => {
 const MyDraftBooksPage: BlitzPage<Props> = ({ books }) => {
   return (
     <Layout>
-      <div className="max-w-5xl mx-auto flex flex-col gap-8 py-10 px-4 h-screen">
+      <div className="max-w-5xl mx-auto flex flex-col gap-8 py-10 px-4 min-h-screen">
         <h1 className="text-blue-700 font-bold text-3xl">Draft Books</h1>
         <div className="grid md:grid-cols-3 gap-4">
           {books.map((book, bookIndex) => (
